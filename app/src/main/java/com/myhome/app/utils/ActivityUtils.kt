@@ -12,6 +12,7 @@ object ActivityUtils{
         checkNotNull(fragment)
         val transaction = fragmentManager.beginTransaction()
         transaction.replace(frameId, fragment)
+        //transaction.addToBackStack(fragment.tag)
         transaction.commitNow()
     }
 }

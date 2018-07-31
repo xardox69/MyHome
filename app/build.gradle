@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'org.jetbrains.kotlin.android.extensions'
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -20,6 +22,16 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "default"
+    // If you need to add more flavors, consider using flavor dimensions.
+    productFlavors {
+
+        prod {
+            dimension "default"
+            signingConfig  signingConfigs.debug
         }
     }
 }
@@ -53,6 +65,9 @@ dependencies {
     // RxJava
     implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
+
+    compile 'com.google.code.gson:gson:2.8.2'
 
 
 

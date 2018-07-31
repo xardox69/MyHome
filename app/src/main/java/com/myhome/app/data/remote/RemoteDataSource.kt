@@ -20,7 +20,8 @@ import retrofit2.converter.jackson.JacksonConverterFactory
 class RemoteDataSource constructor(private val subscriberScheduler: Scheduler,
                                    private val observerScheduler: Scheduler) : IRemoteDataSource {
     override fun getArticles(): Observable<Response<GetItemsResponse>> {
-       return service.getArticles(CURRENT_DOMAIN, CURRENT_LOCALE, CURENT_LIMIT)
+       return service.getArticles(CURRENT_DOMAIN, CURRENT_LOCALE, CURENT_LIMIT).subscribeOn(subscriberScheduler)
+               .observeOn(observerScheduler)
     }
 
 
@@ -40,7 +41,7 @@ class RemoteDataSource constructor(private val subscriberScheduler: Scheduler,
     }
 
 
-    private var  baseUrl: String = "https://api.github.com"
+    private var  baseUrl: String = "https://api-mobile.home24.com/api/v2.0/"
 
     private var httpClient: OkHttpClient = getHTTPClinet()
 

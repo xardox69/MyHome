@@ -9,7 +9,7 @@ class GetArticles  constructor(private val repository: AppRepository) : BaseUseC
 
 
     override fun getObservable(params: Params): Observable<MutableList<Article>> {
-        return repository.getItems().flatMap { response -> (Observable.just(response.body()!!.articles)) }
+        return repository.getItems().flatMap { response -> (Observable.just(response.body()!!.objects.articles)) }
     }
 
 

@@ -29,7 +29,7 @@ class AppRepository  constructor(private val remoteDataSource: RemoteDataSource,
     override fun getItems(): Observable<Response<GetItemsResponse>>{
        return  remoteDataSource.getArticles().map { response ->
             if (response.isSuccessful) {
-                localDataSource.saveItems(response.body()!!.articles)
+                localDataSource.saveItems(response.body()!!.objects.articles)
             }
            (response)
         }
