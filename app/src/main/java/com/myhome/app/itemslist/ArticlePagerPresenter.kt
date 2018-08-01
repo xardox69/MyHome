@@ -95,7 +95,9 @@ class ArticlePagerPresenter (private var getArticles: GetArticles,private var up
 
             mView?.updateRatings(rating,total)
             if(rating == total){
-               // enableReviewButton()
+                mView?.enableReviewButton()
+            }else{
+                mView?.disableReviewButton()
             }
 
         }

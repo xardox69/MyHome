@@ -20,6 +20,8 @@ interface ArticlePagerContract{
 
         fun enableReviewButton()
 
+        fun disableReviewButton()
+
     }
 
 

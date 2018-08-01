@@ -13,6 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:textStyle="bold"
         android:layout_margin="10dp"
+        app:fontFamily="@font/product_sans_regular"
         android:text="total"
         />
 
@@ -23,6 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:textStyle="bold"
         android:text="ratings"
+        app:fontFamily="@font/product_sans_regular"
         android:layout_margin="10dp"
         app:layout_constraintRight_toLeftOf="@+id/divider"/>
 
@@ -33,6 +35,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:text="/"
+        app:fontFamily="@font/product_sans_regular"
         android:layout_margin="10dp"
         app:layout_constraintRight_toLeftOf="@+id/total"
         />
@@ -55,6 +58,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:text="Review"
+        app:fontFamily="@font/product_sans_bold"
+        android:enabled="false"
+        android:background="@drawable/button_selector"
+        android:layout_margin="10dp"
         app:layout_constraintRight_toRightOf="parent"/>
 
 

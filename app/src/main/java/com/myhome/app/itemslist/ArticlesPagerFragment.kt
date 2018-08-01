@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.myhome.app.Injection
@@ -20,7 +21,13 @@ import org.w3c.dom.Text
 
 class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClickListener {
     override fun enableReviewButton() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            reviewBtn.isEnabled = true
+    }
+
+    override fun disableReviewButton(){
+        if(reviewBtn.isEnabled){
+            reviewBtn.isEnabled = false
+        }
     }
 
     override fun updateRatings(rated: Int, totalNum: Int) {
@@ -31,16 +38,21 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
 
 
     override fun onClick(view: View?) {
-        val sku: String = view?.getTag(R.id.item_sku) as String
 
-        val  tempView = pager.findViewWithTag<View>(sku)
+        if(view?.id == R.id.like_image || view?.id == R.id.unlike_image ) {
+            val sku: String = view?.getTag(R.id.item_sku) as String
+            val tempView = pager.findViewWithTag<View>(sku)
 
-        if(view?.id == R.id.like_image){
-            presenter.likeArticle(sku)
-            ViewUtils.deselectDisLikeView(tempView)
-        }else if(view?.id == R.id.unlike_image){
-            presenter.dislikeArticle(sku)
-            ViewUtils.deselectLikeView(tempView)
+            if (view?.id == R.id.like_image) {
+                presenter.likeArticle(sku)
+                ViewUtils.deselectDisLikeView(tempView)
+            } else if (view?.id == R.id.unlike_image) {
+                presenter.dislikeArticle(sku)
+                ViewUtils.deselectLikeView(tempView)
+            }
+
+        }else if(view?.id == R.id.review_btn && reviewBtn.isEnabled){
+
         }
 
         presenter.updateRatings()
@@ -79,6 +91,7 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
     lateinit var presenter: ArticlePagerPresenter
     lateinit var total :TextView
     lateinit var ratedCount : TextView
+    lateinit var reviewBtn : Button
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -87,6 +100,8 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
         pager = view.view_pager
         total = view.total
         ratedCount = view.rated
+        reviewBtn = view.review_btn
+        reviewBtn.setOnClickListener(this)
         adapter = MyPagerAdapter(arrayListOf<Article>(),this)
         pager.adapter = adapter
         presenter = Injection.provideUserListPresenter(context?.applicationContext!!)
