@@ -35,6 +35,10 @@ interface ArticlePagerContract{
 
         fun getArticles()
 
+        fun likeArticle(sku: String)
+
+        fun dislikeArticle(sku:String)
+
     }
 
 

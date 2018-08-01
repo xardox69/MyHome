@@ -18,32 +18,38 @@
     <ImageView
         android:id="@+id/like_image"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/like_selector"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintHorizontal_chainStyle="packed"
         android:layout_marginLeft="30dp"
+        android:clickable="true"
+        android:layout_margin="10dp"
+        android:padding="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/unlike_image" />
 
     <ImageView
         android:id="@+id/unlike_image"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_marginRight="30dp"
+        android:padding="10dp"
+        android:clickable="true"
+        android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:background="@drawable/dislike_selector"
         app:layout_constraintLeft_toRightOf="@+id/like_image"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"/>
+        app:layout_constraintHorizontal_chainStyle="packed"/>
 
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:src="@drawable/dislike_selector"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        />
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/unlike_image"
+        app:layout_constraintTop_toBottomOf="@+id/title"/>
 
 
 

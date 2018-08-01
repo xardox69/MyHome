@@ -10,7 +10,13 @@ import com.myhome.app.domain.usecases.entities.Params
 import io.reactivex.observers.DisposableObserver
 
 class ArticlePagerPresenter (private var getArticles: GetArticles,private var updateArticle: UpdateArticle): ArticlePagerContract.Presenter{
+    override fun likeArticle(sku: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
+    override fun dislikeArticle(sku: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
 
     var params: Params = Params.create()
@@ -66,6 +72,7 @@ class ArticlePagerPresenter (private var getArticles: GetArticles,private var up
 
         override fun onNext(t: MutableList<Article>) {
             Log.d("next",t.toString())
+            mView?.setData(t)
 
         }
 
