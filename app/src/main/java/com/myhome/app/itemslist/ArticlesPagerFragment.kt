@@ -7,20 +7,30 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.myhome.app.Injection
 import com.myhome.app.R
 import com.myhome.app.data.model.Article
+import com.myhome.app.utils.ViewUtils
 import com.myhome.app.widget.MyPagerAdapter
 import kotlinx.android.synthetic.main.frag_articles_pager.view.*
 
 
 class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClickListener {
-    override fun onClick(p0: View?) {
-        val sku :String = p0?.getTag().toString()
-        if(p0?.id == R.id.like_image){
+
+
+
+    override fun onClick(view: View?) {
+        val sku: String = view?.getTag(R.id.item_sku) as String
+
+        val  tempView = pager.findViewWithTag<View>(sku)
+
+        if(view?.id == R.id.like_image){
             presenter.likeArticle(sku)
-        }else if(p0?.id == R.id.unlike_image){
+            ViewUtils.deselectDisLikeView(tempView)
+        }else if(view?.id == R.id.unlike_image){
             presenter.dislikeArticle(sku)
+            ViewUtils.deselectLikeView(tempView)
         }
     }
 

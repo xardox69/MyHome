@@ -1,10 +1,11 @@
 package com.myhome.app.data.remote
 
 import com.myhome.app.data.model.GetItemsResponse
+import com.myhome.app.domain.usecases.entities.Params
 import io.reactivex.Observable
 import retrofit2.Response
 
 interface IRemoteDataSource {
 
-    fun getArticles(): Observable<Response<GetItemsResponse>>;
+    fun getArticles(params: Params): Observable<Response<GetItemsResponse>>;
 }

@@ -12,7 +12,7 @@ interface ArticleView {
 
     fun setDisliked()
 
-    fun setTag(position:Int, sku:String)
+    fun setViewTag(position:Int, sku:String)
 
 
 }

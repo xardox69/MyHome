@@ -15,19 +15,22 @@ class MyPagerAdapter constructor(private val list: MutableList<Article>, private
 
 
     override fun onClick(view: View?) {
-
+        clickListener.onClick(view)
 
         val position: Int = view?.getTag(R.id.item_position) as Int
-        val sku: String = view?.getTag(R.id.item_sku) as String
 
-        if (view?.id == R.id.like_image) {
 
-            if (view.isSelected) {
-                view.isSelected = false
-            } else {
-                view.isSelected = true
-            }
+        if (view?.id == R.id.like_image && !view.isSelected) {
+            view.isSelected = true
+            list.get(position).like = true
+            list.get(position).dislike = false
+        }else if (view?.id == R.id.unlike_image && !view.isSelected){
+            view.isSelected = true
+            list.get(position).like = false
+            list.get(position).dislike = true
         }
+        notifyDataSetChanged()
+
     }
 
 
@@ -58,10 +61,17 @@ class MyPagerAdapter constructor(private val list: MutableList<Article>, private
             holder.setDisliked()
         }
 
-        holder.setTag(position,item.sku)
+
+        holder.likeImage.setTag(R.id.item_sku,item.sku)
+        holder.likeImage.setTag(R.id.item_position,position)
+        holder.dislikeImage.setTag(R.id.item_sku,item.sku)
+        holder.dislikeImage.setTag(R.id.item_position,position)
+        holder.likeImage.setOnClickListener(this)
+        holder.dislikeImage.setOnClickListener(this)
 
 
         container?.addView(view)
+        view.setTag(item.sku)
         return view
     }
 

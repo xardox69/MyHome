@@ -12,10 +12,10 @@ class ArticleViewHolder constructor(var itemView:View) : ArticleView{
 
 
 
-    override fun setTag(position: Int, sku: String) {
-        likeImage.setTag(R.id.sku,sku)
+    override fun setViewTag(position: Int, sku: String) {
+        likeImage.setTag(R.id.item_sku,sku)
         likeImage.setTag(R.id.item_position,position)
-        dislikeImage.setTag(R.id.sku,sku)
+        dislikeImage.setTag(R.id.item_sku,sku)
         dislikeImage.setTag(R.id.item_position,position)
     }
 

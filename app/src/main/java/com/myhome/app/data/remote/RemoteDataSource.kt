@@ -4,6 +4,7 @@ import com.myhome.app.data.model.GetItemsResponse
 import com.myhome.app.data.remote.APIConstants.Companion.CURENT_LIMIT
 import com.myhome.app.data.remote.APIConstants.Companion.CURRENT_DOMAIN
 import com.myhome.app.data.remote.APIConstants.Companion.CURRENT_LOCALE
+import com.myhome.app.domain.usecases.entities.Params
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import okhttp3.OkHttpClient
@@ -19,9 +20,13 @@ import retrofit2.converter.jackson.JacksonConverterFactory
 
 class RemoteDataSource constructor(private val subscriberScheduler: Scheduler,
                                    private val observerScheduler: Scheduler) : IRemoteDataSource {
-    override fun getArticles(): Observable<Response<GetItemsResponse>> {
-       return service.getArticles(CURRENT_DOMAIN, CURRENT_LOCALE, CURENT_LIMIT).subscribeOn(subscriberScheduler)
-               .observeOn(observerScheduler)
+
+
+
+    override fun getArticles(params: Params): Observable<Response<GetItemsResponse>> {
+        return service.getArticles(params.getString(APIConstants.APP_DOMAIN,"1")!!, params.getString(APIConstants.LOCALE,"de_DE")!!,
+                params.getInt(APIConstants.LIMIT,10)).subscribeOn(subscriberScheduler)
+                .observeOn(observerScheduler)
     }
 
 

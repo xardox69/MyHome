@@ -11,11 +11,16 @@ import io.reactivex.observers.DisposableObserver
 
 class ArticlePagerPresenter (private var getArticles: GetArticles,private var updateArticle: UpdateArticle): ArticlePagerContract.Presenter{
     override fun likeArticle(sku: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        params.putInt(STATE_KEY,LIKE_STATE_VAL)
+        params.putString(ARTICLE_SKU_KEY,sku)
+        updateArticle.execute(ArticlesStateObserver(),params)
     }
 
     override fun dislikeArticle(sku: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        params.putInt(STATE_KEY, DISLIKE_STATE_KEY)
+        params.putString(ARTICLE_SKU_KEY,sku)
+        updateArticle.execute(ArticlesStateObserver(),params)
     }
 
 
@@ -27,9 +32,9 @@ class ArticlePagerPresenter (private var getArticles: GetArticles,private var up
     }
 
     init {
+        params.putString(APIConstants.APP_DOMAIN, "1")
         params.putString(APIConstants.LOCALE, APIConstants.CURRENT_LOCALE)
         params.putInt(APIConstants.LIMIT, APIConstants.CURENT_LIMIT)
-
     }
 
 
@@ -58,7 +63,7 @@ class ArticlePagerPresenter (private var getArticles: GetArticles,private var up
 
 
     companion object {
-         const val  LIKE_STATE_KEY :String = "like"
+         const val  STATE_KEY :String = "like"
         const val  ARTICLE_SKU_KEY :String = "sku"
             const val  LIKE_STATE_VAL :Int = 0
         const val  DISLIKE_STATE_KEY :Int = 1
@@ -73,6 +78,23 @@ class ArticlePagerPresenter (private var getArticles: GetArticles,private var up
         override fun onNext(t: MutableList<Article>) {
             Log.d("next",t.toString())
             mView?.setData(t)
+
+        }
+
+        override fun onComplete() {
+            Log.d("complete","complete")
+        }
+
+    }
+
+    inner class ArticlesStateObserver : DisposableObserver<Boolean>() {
+        override fun onError(e: Throwable) {
+            Log.d("Error",e.toString())
+        }
+
+        override fun onNext(t: Boolean) {
+            Log.d("next",t.toString())
+
 
         }
 
