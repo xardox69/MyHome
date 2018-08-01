@@ -14,7 +14,9 @@ import java.util.concurrent.TimeUnit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.jackson.JacksonConverterFactory
 
-
+/**
+ * Remote data source to get the data from remote location
+ */
 class RemoteDataSource constructor(private val subscriberScheduler: Scheduler,
                                    private val observerScheduler: Scheduler) : IRemoteDataSource {
 

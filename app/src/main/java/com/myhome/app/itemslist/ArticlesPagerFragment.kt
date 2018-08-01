@@ -124,7 +124,8 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
             presenter.setNextpage(pager.currentItem,adapter.count)
 
         }else if(view?.id == R.id.review_btn && reviewBtn.isEnabled){
-        ActivityUtils.addFragmentToActivity(activity?.supportFragmentManager!!,ReviewFragment.newInstance(),R.id.content)
+        ActivityUtils.addFragmentToActivity(activity?.supportFragmentManager!!,ReviewFragment.newInstance()
+                ,ReviewFragment.TAG,R.id.content)
         }
 
         presenter.updateRatings()

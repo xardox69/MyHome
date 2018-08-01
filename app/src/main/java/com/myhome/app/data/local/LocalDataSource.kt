@@ -5,6 +5,9 @@ import com.myhome.app.data.model.Article
 import io.reactivex.Observable
 import java.util.*
 
+/**
+ * Local data source to store and save data locally
+ */
 class LocalDataSource constructor( private val mDataDao: DataDao): ILocalDataSource {
     override fun getItems(): Observable<MutableList<Article>> {
         return Observable.just(mDataDao.getArticles())

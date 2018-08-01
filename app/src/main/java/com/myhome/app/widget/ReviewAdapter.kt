@@ -9,6 +9,7 @@ import android.view.View
 import android.content.Context
 import android.view.LayoutInflater
 import com.myhome.app.R
+import kotlinx.android.synthetic.main.grid_item.view.*
 import kotlinx.android.synthetic.main.list_item.view.*
 
 class ReviewAdapter  (private var context: Context, private var items:MutableList<Article>,
@@ -32,7 +33,13 @@ class ReviewAdapter  (private var context: Context, private var items:MutableLis
             GlideApp.with(context).load(item.media[0].uri).into((holder as MyListViewHolder).avatar)
             holder.name.text = item.title
         }else{
+
             GlideApp.with(context).load(item.media[0].uri).into((holder as MyGridViewHolder).avatar)
+            if(item.like) {
+                holder.liked.visibility = View.VISIBLE
+            }else{
+                holder.liked.visibility = View.GONE
+            }
         }
     }
 
@@ -62,7 +69,8 @@ class ReviewAdapter  (private var context: Context, private var items:MutableLis
 
 
     inner class MyGridViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var avatar : ImageView = view.avatar
+        var avatar : ImageView = view.findViewById(R.id.grid_avatar)
+        var liked : ImageView = view.grid_like
 
 
     }

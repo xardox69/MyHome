@@ -7,6 +7,9 @@ import com.myhome.app.domain.usecases.GetArticles
 import io.reactivex.Scheduler
 import io.reactivex.observers.DisposableObserver
 
+/**
+ * Presenter for the review screen
+ */
 class ReviewPresenter(private var getArticles: GetArticles, private var subscriberScheduler: Scheduler, private var observerScheduler: Scheduler): ReviewContract.Presenter{
 
 

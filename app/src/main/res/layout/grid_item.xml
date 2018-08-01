@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/grid_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/grid_like"/>
 
 
     <ImageView
-        android:id="@+id/avatar"
+        android:id="@+id/grid_avatar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/grid_like"
+        android:src="@color/cardview_dark_background"
         android:scaleType="fitXY" />
 
 </android.support.constraint.ConstraintLayout>
