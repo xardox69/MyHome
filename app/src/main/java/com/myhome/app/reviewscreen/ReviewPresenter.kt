@@ -4,9 +4,10 @@ import com.myhome.app.data.model.Article
 import com.myhome.app.data.remote.APIConstants
 import com.myhome.app.domain.Params
 import com.myhome.app.domain.usecases.GetArticles
+import io.reactivex.Scheduler
 import io.reactivex.observers.DisposableObserver
 
-class ReviewPresenter(private var getArticles: GetArticles): ReviewContract.Presenter{
+class ReviewPresenter(private var getArticles: GetArticles, private var subscriberScheduler: Scheduler, private var observerScheduler: Scheduler): ReviewContract.Presenter{
 
 
     var params: Params = Params.create()
@@ -31,7 +32,8 @@ class ReviewPresenter(private var getArticles: GetArticles): ReviewContract.Pres
 
 
     override fun getArticles() {
-        getArticles.execute(ArticlesObserver(),params)
+        mView?.showLoading()
+        getArticles.execute(ArticlesObserver(),params,subscriberScheduler,observerScheduler)
     }
 
 
@@ -40,6 +42,7 @@ class ReviewPresenter(private var getArticles: GetArticles): ReviewContract.Pres
         }
 
         override fun onNext(t: MutableList<Article>) {
+            mView?.dismissLoading()
             mView?.setData(t)
         }
 

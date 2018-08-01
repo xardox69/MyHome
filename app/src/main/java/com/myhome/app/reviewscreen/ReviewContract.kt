@@ -9,6 +9,10 @@ interface ReviewContract {
 
         fun setData(items :MutableList<Article>)
 
+        fun showLoading()
+
+        fun dismissLoading()
+
     }
 
     interface Presenter {

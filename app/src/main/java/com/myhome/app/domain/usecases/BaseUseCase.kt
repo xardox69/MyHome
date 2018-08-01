@@ -3,6 +3,7 @@ package com.myhome.app.domain.usecases
 
 import com.myhome.app.domain.Params
 import io.reactivex.Observable
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -20,10 +21,11 @@ abstract class BaseUseCase <T> (private val disposables: CompositeDisposable = C
      * @param observer [DisposableObserver] which will be listening to the observable build
      * with [.getObservable].
      */
-    fun execute(observer: DisposableObserver<T>, params: Params?) {
+    fun execute(observer: DisposableObserver<T>, params: Params?, subscriberSchedulers: Scheduler,
+                observerSchedulers: Scheduler) {
         val observable = this.getObservable(params!!)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(subscriberSchedulers)
+                .observeOn(observerSchedulers)
         addDisposable(observable.subscribeWith<DisposableObserver<T>>(observer))
     }
 

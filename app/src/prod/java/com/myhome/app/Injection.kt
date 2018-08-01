@@ -19,13 +19,15 @@ object Injection {
 
     fun provideUserListPresenter(mContext: Context): ArticlePagerPresenter{
             context = mContext
-        return ArticlePagerPresenter(provideGetArticleUsecase(),provideUpdateArticle())
+        return ArticlePagerPresenter(provideGetArticleUsecase(),provideUpdateArticle(), provideSubscriberScheduler()
+        , provideObserverScheduler())
 
     }
 
     fun provideReviewPresenter(mContext: Context): ReviewPresenter{
         context = mContext
-        return ReviewPresenter(provideGetArticleUsecase())
+        return ReviewPresenter(provideGetArticleUsecase(),provideSubscriberScheduler()
+                , provideObserverScheduler())
     }
 
 

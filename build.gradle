@@ -31,7 +31,8 @@ ext{
     roomVersion='1.0.0'
     jacksonVersion='2.8.5'
     rxAndroidVersion='2.0.2'
-    support_libs_version='27.0.0'
+    support_libs_version='27.1.1'
+    mockitoVersion='1.10.19'
 }
 
 

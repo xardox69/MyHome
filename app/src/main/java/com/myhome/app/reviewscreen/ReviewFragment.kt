@@ -1,6 +1,7 @@
 package com.myhome.app.reviewscreen
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -21,23 +22,7 @@ import com.myhome.app.widget.ReviewAdapter
 import kotlinx.android.synthetic.main.review_ffragment.view.*
 
 class ReviewFragment:Fragment() , ReviewContract.View, CompoundButton.OnCheckedChangeListener {
-    override fun onCheckedChanged(p0: CompoundButton?, isChecked: Boolean) {
 
-        if(isChecked){
-
-            switch.setText("Grid")
-            recyclerView.layoutManager = linearLayoutManager
-            myAdapter.type = ListState.VERTICAL.value
-        }else{
-            switch.setText("List")
-            recyclerView.layoutManager = gridLayoutManager
-            myAdapter.type = ListState.HORIZONTAL.value
-
-
-        }
-        recyclerView.invalidate()
-
-    }
 
 
     override fun setData(items: MutableList<Article>) {
@@ -61,6 +46,7 @@ class ReviewFragment:Fragment() , ReviewContract.View, CompoundButton.OnCheckedC
     private lateinit var myAdapter : ReviewAdapter
     private lateinit var presenter: ReviewPresenter
     private lateinit var switch: Switch
+    private lateinit var snackbar: Snackbar
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -71,10 +57,12 @@ class ReviewFragment:Fragment() , ReviewContract.View, CompoundButton.OnCheckedC
 
         linearLayoutManager = LinearLayoutManager(inflater.context)
         gridLayoutManager = GridLayoutManager(inflater.context,2)
+        snackbar = Snackbar.make(activity!!.findViewById(android.R.id.content),"", Snackbar.LENGTH_SHORT)
         recyclerView.layoutManager = gridLayoutManager
         myAdapter = ReviewAdapter(inflater.context,arrayListOf<Article>(),ListState.HORIZONTAL.value)
         recyclerView.adapter = myAdapter
         presenter = Injection.provideReviewPresenter(inflater.context.applicationContext)
+
         presenter.getArticles()
         return view
     }
@@ -88,5 +76,36 @@ class ReviewFragment:Fragment() , ReviewContract.View, CompoundButton.OnCheckedC
         super.onPause()
         presenter.dropView()
     }
+
+    override fun onCheckedChanged(p0: CompoundButton?, isChecked: Boolean) {
+
+        if(isChecked){
+
+            switch.setText(getString(R.string.lbl_grid))
+            recyclerView.layoutManager = linearLayoutManager
+            myAdapter.type = ListState.VERTICAL.value
+        }else{
+            switch.setText(getString(R.string.lbl_list))
+            recyclerView.layoutManager = gridLayoutManager
+            myAdapter.type = ListState.HORIZONTAL.value
+
+
+        }
+        recyclerView.invalidate()
+
+    }
+
+    override fun showLoading() {
+        snackbar.setText(getString(R.string.lbl_loading_data))
+        snackbar.show()
+    }
+
+    override fun dismissLoading() {
+        if(snackbar.isShown){
+            snackbar.dismiss()
+        }
+    }
+
+
 
 }

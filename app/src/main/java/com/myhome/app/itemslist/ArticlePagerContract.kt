@@ -26,6 +26,8 @@ interface ArticlePagerContract{
 
         fun showNoItemsLeft()
 
+        fun showLastItem()
+
     }
 
 
@@ -52,6 +54,8 @@ interface ArticlePagerContract{
         fun updateRatings();
 
         fun setNextpage( currentPage:Int, totalPages:Int)
+
+        fun pageChanged (currentPage:Int, totalPages:Int)
 
     }
 

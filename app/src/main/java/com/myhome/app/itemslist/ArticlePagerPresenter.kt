@@ -7,9 +7,11 @@ import com.myhome.app.data.remote.APIConstants
 import com.myhome.app.domain.usecases.GetArticles
 import com.myhome.app.domain.usecases.UpdateArticle
 import com.myhome.app.domain.Params
+import io.reactivex.Scheduler
 import io.reactivex.observers.DisposableObserver
 
-class ArticlePagerPresenter (private var getArticles: GetArticles,private var updateArticle: UpdateArticle): ArticlePagerContract.Presenter{
+class ArticlePagerPresenter (private var getArticles: GetArticles,private var updateArticle: UpdateArticle,
+private var subscriberScheduler:Scheduler, private var observerScheduler: Scheduler): ArticlePagerContract.Presenter{
 
 
 
@@ -22,20 +24,20 @@ class ArticlePagerPresenter (private var getArticles: GetArticles,private var up
     }
 
     override fun updateRatings() {
-        getArticles.execute(ArticlesObserver(false),params)
+        getArticles.execute(ArticlesObserver(false),params,subscriberScheduler,observerScheduler)
     }
 
     override fun likeArticle(sku: String) {
 
         params.putInt(STATE_KEY,LIKE_STATE_VAL)
         params.putString(ARTICLE_SKU_KEY,sku)
-        updateArticle.execute(ArticlesStateObserver(),params)
+        updateArticle.execute(ArticlesStateObserver(),params,subscriberScheduler,observerScheduler)
     }
 
     override fun dislikeArticle(sku: String) {
         params.putInt(STATE_KEY, DISLIKE_STATE_KEY)
         params.putString(ARTICLE_SKU_KEY,sku)
-        updateArticle.execute(ArticlesStateObserver(),params)
+        updateArticle.execute(ArticlesStateObserver(),params,subscriberScheduler,observerScheduler)
     }
 
 
@@ -43,7 +45,8 @@ class ArticlePagerPresenter (private var getArticles: GetArticles,private var up
 
 
     override fun getArticles() {
-        getArticles.execute(ArticlesObserver(true),params)
+        mView?.showLoading()
+        getArticles.execute(ArticlesObserver(true),params,subscriberScheduler,observerScheduler)
     }
 
     init {
@@ -85,12 +88,19 @@ class ArticlePagerPresenter (private var getArticles: GetArticles,private var up
     }
 
 
+    override fun pageChanged(currentPage: Int, totalPages: Int) {
+        if(currentPage == totalPages-1){
+            mView?.showNoItemsLeft()
+        }
+    }
+
+
     inner class ArticlesObserver (var updateItems: Boolean): DisposableObserver<MutableList<Article>>() {
         override fun onError(e: Throwable) {
         }
 
         override fun onNext(t: MutableList<Article>) {
-
+            mView?.onDataLoaded()
             var rating :Int = 0;
             var total :Int = t.size
             if(updateItems) {
@@ -113,7 +123,6 @@ class ArticlePagerPresenter (private var getArticles: GetArticles,private var up
         }
 
         override fun onComplete() {
-
         }
 
     }

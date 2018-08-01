@@ -1,8 +1,10 @@
 package com.myhome.app.itemslist
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,8 +21,9 @@ import kotlinx.android.synthetic.main.frag_articles_pager.view.*
 
 
 
-class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClickListener {
-
+class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClickListener, ViewPager.OnPageChangeListener {
+    override fun showLastItem() {
+    }
 
 
     private lateinit var adapter: MyPagerAdapter
@@ -39,12 +42,13 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
     }
 
 
-    lateinit var pager:ViewPager
-    lateinit var presenter: ArticlePagerPresenter
-    lateinit var total :TextView
-    lateinit var ratedCount : TextView
-    lateinit var reviewBtn : Button
-     var currentPosition :Int = 0
+    private lateinit var pager:ViewPager
+    private lateinit var presenter: ArticlePagerPresenter
+    private lateinit var total :TextView
+    private lateinit var ratedCount : TextView
+    private lateinit var reviewBtn : Button
+    private lateinit var snackbar: Snackbar
+    private var currentPosition :Int = 0
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -57,8 +61,10 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
         reviewBtn.setOnClickListener(this)
         adapter = MyPagerAdapter(arrayListOf<Article>(),this)
         pager.adapter = adapter
+
         presenter = Injection.provideUserListPresenter(context?.applicationContext!!)
         presenter.getArticles()
+        snackbar = Snackbar.make(activity!!.findViewById(android.R.id.content),"",Snackbar.LENGTH_SHORT)
 
         if(savedInstanceState!=null){
             currentPosition = savedInstanceState.getInt(PAGER_KEY)
@@ -69,12 +75,14 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
 
     override fun onResume() {
         super.onResume()
+        pager.addOnPageChangeListener(this)
         presenter.takeView(this)
     }
 
 
     override fun onPause() {
         super.onPause()
+        pager.removeOnPageChangeListener(this)
         presenter.dropView()
     }
 
@@ -95,8 +103,8 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
     }
 
     override fun updateRatings(rated: Int, totalNum: Int) {
-        ratedCount.setText(" " + rated)
-        total.setText(" " + totalNum)
+        ratedCount.setText(rated.toString())
+        total.setText(totalNum.toString())
 
     }
 
@@ -129,11 +137,14 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
     }
 
     override fun onDataLoaded() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if(snackbar.isShown){
+            snackbar.dismiss()
+        }
     }
 
     override fun showLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        snackbar.setText(getString(R.string.lbl_loading_data))
+        snackbar.show()
     }
 
 
@@ -142,7 +153,21 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
     }
 
     override fun showNoItemsLeft() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        snackbar.setText(getString(R.string.lbl_last_item))
+        snackbar.show()
+    }
+
+
+
+    override fun onPageScrollStateChanged(state: Int) {
+    }
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+    }
+
+    override fun onPageSelected(position: Int) {
+        presenter.pageChanged(position,adapter.count)
     }
 
 

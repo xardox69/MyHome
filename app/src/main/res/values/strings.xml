@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MyHome</string>
+    <string name="lbl_grid">Grid</string>
+    <string name="lbl_list">List</string>
+    <string name="lbl_last_item">Last article.</string>
+    <string name="lbl_loading_data">Loading data ...</string>
 </resources>
