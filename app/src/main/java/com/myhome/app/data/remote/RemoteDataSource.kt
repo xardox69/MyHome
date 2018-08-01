@@ -1,10 +1,7 @@
 package com.myhome.app.data.remote
 
 import com.myhome.app.data.model.GetItemsResponse
-import com.myhome.app.data.remote.APIConstants.Companion.CURENT_LIMIT
-import com.myhome.app.data.remote.APIConstants.Companion.CURRENT_DOMAIN
-import com.myhome.app.data.remote.APIConstants.Companion.CURRENT_LOCALE
-import com.myhome.app.domain.usecases.entities.Params
+import com.myhome.app.domain.Params
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import okhttp3.OkHttpClient

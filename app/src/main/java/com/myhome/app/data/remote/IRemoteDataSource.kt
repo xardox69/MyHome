@@ -1,7 +1,7 @@
 package com.myhome.app.data.remote
 
 import com.myhome.app.data.model.GetItemsResponse
-import com.myhome.app.domain.usecases.entities.Params
+import com.myhome.app.domain.Params
 import io.reactivex.Observable
 import retrofit2.Response
 

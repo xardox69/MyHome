@@ -1,4 +1,4 @@
-package com.myhome.app.domain.usecases.entities
+package com.myhome.app.domain
 
 import java.util.HashMap
 
@@ -113,7 +113,7 @@ class Params private constructor() {
     }
 
     companion object {
-        val EMPTY = Params.create()
+        val EMPTY = create()
 
         fun create(): Params {
             return Params()

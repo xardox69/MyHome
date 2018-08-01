@@ -6,10 +6,21 @@ import com.myhome.app.data.model.Article
 import com.myhome.app.data.remote.APIConstants
 import com.myhome.app.domain.usecases.GetArticles
 import com.myhome.app.domain.usecases.UpdateArticle
-import com.myhome.app.domain.usecases.entities.Params
+import com.myhome.app.domain.Params
 import io.reactivex.observers.DisposableObserver
 
 class ArticlePagerPresenter (private var getArticles: GetArticles,private var updateArticle: UpdateArticle): ArticlePagerContract.Presenter{
+
+
+
+    override fun setNextpage(currentPage: Int,totalPages: Int) {
+            if(currentPage< totalPages){
+                    mView?.showNextPage(currentPage+1)
+            }else{
+                mView?.showNoItemsLeft()
+            }
+    }
+
     override fun updateRatings() {
         getArticles.execute(ArticlesObserver(false),params)
     }
@@ -76,11 +87,10 @@ class ArticlePagerPresenter (private var getArticles: GetArticles,private var up
 
     inner class ArticlesObserver (var updateItems: Boolean): DisposableObserver<MutableList<Article>>() {
         override fun onError(e: Throwable) {
-            Log.d("Error",e.toString())
         }
 
         override fun onNext(t: MutableList<Article>) {
-            Log.d("next",t.toString())
+
             var rating :Int = 0;
             var total :Int = t.size
             if(updateItems) {
@@ -103,7 +113,7 @@ class ArticlePagerPresenter (private var getArticles: GetArticles,private var up
         }
 
         override fun onComplete() {
-            Log.d("complete","complete")
+
         }
 
     }
@@ -111,17 +121,12 @@ class ArticlePagerPresenter (private var getArticles: GetArticles,private var up
 
     inner class ArticlesStateObserver : DisposableObserver<Boolean>() {
         override fun onError(e: Throwable) {
-            Log.d("Error",e.toString())
         }
 
         override fun onNext(t: Boolean) {
-            Log.d("next",t.toString())
-            //getArticles.execute(ArticlesObserver(false),params)
-
         }
 
         override fun onComplete() {
-            Log.d("complete","complete")
         }
 
     }

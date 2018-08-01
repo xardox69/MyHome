@@ -4,15 +4,14 @@ import com.myhome.app.data.local.LocalDataSource
 import com.myhome.app.data.model.Article
 import com.myhome.app.data.model.GetItemsResponse
 import com.myhome.app.data.remote.RemoteDataSource
-import com.myhome.app.domain.usecases.entities.Params
+import com.myhome.app.domain.Params
 import io.reactivex.Observable
 import retrofit2.Response
-import java.util.*
 
 class AppRepository  constructor(private val remoteDataSource: RemoteDataSource,
                                 private val localDataSource: LocalDataSource): IAppRepository  {
 
-    override fun getItems(params:Params): Observable<Response<GetItemsResponse>> {
+    override fun getItems(params: Params): Observable<Response<GetItemsResponse>> {
         return  remoteDataSource.getArticles(params).map { response ->
             if (response.isSuccessful) {
                 localDataSource.saveItems(response.body()!!.objects.articles)

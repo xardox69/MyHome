@@ -8,6 +8,7 @@ import com.myhome.app.data.remote.RemoteDataSource
 import com.myhome.app.domain.usecases.GetArticles
 import com.myhome.app.domain.usecases.UpdateArticle
 import com.myhome.app.itemslist.ArticlePagerPresenter
+import com.myhome.app.reviewscreen.ReviewPresenter
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -22,10 +23,10 @@ object Injection {
 
     }
 
-    /*fun provideUserDetailPresenter(mContext: Context): UserDetailPresenter{
+    fun provideReviewPresenter(mContext: Context): ReviewPresenter{
         context = mContext
-        return UserDetailPresenter(provideUserDetailUsecase())
-    }*/
+        return ReviewPresenter(provideGetArticleUsecase())
+    }
 
 
     fun provideUpdateArticle() : UpdateArticle {

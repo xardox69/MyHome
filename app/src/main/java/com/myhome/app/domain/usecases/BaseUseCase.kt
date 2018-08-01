@@ -1,7 +1,7 @@
 package com.myhome.app.domain.usecases
 
 
-import com.myhome.app.domain.usecases.entities.Params
+import com.myhome.app.domain.Params
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

@@ -22,6 +22,10 @@ interface ArticlePagerContract{
 
         fun disableReviewButton()
 
+        fun showNextPage(page:Int)
+
+        fun showNoItemsLeft()
+
     }
 
 
@@ -46,6 +50,8 @@ interface ArticlePagerContract{
         fun dislikeArticle(sku:String)
 
         fun updateRatings();
+
+        fun setNextpage( currentPage:Int, totalPages:Int)
 
     }
 
