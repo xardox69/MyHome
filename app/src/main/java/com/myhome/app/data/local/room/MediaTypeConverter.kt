@@ -10,15 +10,16 @@ class MediaTypeConverter {
 
     @TypeConverter
     fun fromString(value: String): MutableList<ArticleMedia> {
-        val type = object : TypeToken<ArticleMedia>() {
-        }.type
+        val type = object : TypeToken<ArrayList<ArticleMedia>>() {
+
+        }.type;
         return Gson().fromJson<MutableList<ArticleMedia>>(value, type)
     }
 
     @TypeConverter
-    fun fromArticleMedia(article: MutableList<ArticleMedia>): String {
+    fun fromArticleMedia(articles: MutableList<ArticleMedia>): String {
         val gSon = Gson()
-        return gSon.toJson(article)
+        return gSon.toJson(articles)
     }
 
 }

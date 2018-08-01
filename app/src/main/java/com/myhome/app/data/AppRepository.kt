@@ -1,6 +1,7 @@
 package com.myhome.app.data
 
 import com.myhome.app.data.local.LocalDataSource
+import com.myhome.app.data.model.Article
 import com.myhome.app.data.model.GetItemsResponse
 import com.myhome.app.data.remote.RemoteDataSource
 import com.myhome.app.domain.usecases.entities.Params
@@ -33,8 +34,8 @@ class AppRepository  constructor(private val remoteDataSource: RemoteDataSource,
         localDataSource.dislikeArticle(sku)
     }
 
-    override fun getCachedItems() {
-        localDataSource.getItems()
+    override fun getCachedItems() :Observable<MutableList<Article>> {
+        return localDataSource.getItems()
     }
 
 

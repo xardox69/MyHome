@@ -1,5 +1,6 @@
 package com.myhome.app.data
 
+import com.myhome.app.data.model.Article
 import com.myhome.app.data.model.GetItemsResponse
 import com.myhome.app.domain.usecases.entities.Params
 import io.reactivex.Observable
@@ -16,6 +17,6 @@ public interface IAppRepository{
 
     fun disLikeArticle(sku:String)
 
-    fun getCachedItems()
+    fun getCachedItems() :Observable<MutableList<Article>>
 
 }

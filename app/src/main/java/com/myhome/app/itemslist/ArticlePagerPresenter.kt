@@ -10,6 +10,10 @@ import com.myhome.app.domain.usecases.entities.Params
 import io.reactivex.observers.DisposableObserver
 
 class ArticlePagerPresenter (private var getArticles: GetArticles,private var updateArticle: UpdateArticle): ArticlePagerContract.Presenter{
+    override fun updateRatings() {
+        getArticles.execute(ArticlesObserver(false),params)
+    }
+
     override fun likeArticle(sku: String) {
 
         params.putInt(STATE_KEY,LIKE_STATE_VAL)
@@ -28,7 +32,7 @@ class ArticlePagerPresenter (private var getArticles: GetArticles,private var up
 
 
     override fun getArticles() {
-        getArticles.execute(ArticlesObserver(),params)
+        getArticles.execute(ArticlesObserver(true),params)
     }
 
     init {
@@ -70,14 +74,29 @@ class ArticlePagerPresenter (private var getArticles: GetArticles,private var up
     }
 
 
-    inner class ArticlesObserver : DisposableObserver<MutableList<Article>>() {
+    inner class ArticlesObserver (var updateItems: Boolean): DisposableObserver<MutableList<Article>>() {
         override fun onError(e: Throwable) {
             Log.d("Error",e.toString())
         }
 
         override fun onNext(t: MutableList<Article>) {
             Log.d("next",t.toString())
-            mView?.setData(t)
+            var rating :Int = 0;
+            var total :Int = t.size
+            if(updateItems) {
+                mView?.setData(t)
+            }
+
+            for (item in t) {
+               if(item.dislike || item.like){
+                   rating++
+               }
+            }
+
+            mView?.updateRatings(rating,total)
+            if(rating == total){
+               // enableReviewButton()
+            }
 
         }
 
@@ -86,6 +105,7 @@ class ArticlePagerPresenter (private var getArticles: GetArticles,private var up
         }
 
     }
+
 
     inner class ArticlesStateObserver : DisposableObserver<Boolean>() {
         override fun onError(e: Throwable) {
@@ -94,7 +114,7 @@ class ArticlePagerPresenter (private var getArticles: GetArticles,private var up
 
         override fun onNext(t: Boolean) {
             Log.d("next",t.toString())
-
+            //getArticles.execute(ArticlesObserver(false),params)
 
         }
 
@@ -103,11 +123,4 @@ class ArticlePagerPresenter (private var getArticles: GetArticles,private var up
         }
 
     }
-
-
-
-
-
-
-
 }

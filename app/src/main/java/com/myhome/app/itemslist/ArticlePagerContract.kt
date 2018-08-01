@@ -16,6 +16,10 @@ interface ArticlePagerContract{
 
         fun showLoading()
 
+        fun updateRatings(rated: Int, total:Int)
+
+        fun enableReviewButton()
+
     }
 
 
@@ -38,6 +42,8 @@ interface ArticlePagerContract{
         fun likeArticle(sku: String)
 
         fun dislikeArticle(sku:String)
+
+        fun updateRatings();
 
     }
 

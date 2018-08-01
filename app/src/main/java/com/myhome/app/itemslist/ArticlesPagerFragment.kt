@@ -8,16 +8,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.myhome.app.Injection
 import com.myhome.app.R
 import com.myhome.app.data.model.Article
 import com.myhome.app.utils.ViewUtils
 import com.myhome.app.widget.MyPagerAdapter
 import kotlinx.android.synthetic.main.frag_articles_pager.view.*
+import org.w3c.dom.Text
 
 
 class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClickListener {
+    override fun enableReviewButton() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
+    override fun updateRatings(rated: Int, totalNum: Int) {
+            ratedCount.setText(" " + rated)
+        total.setText(" " + totalNum)
+
+    }
 
 
     override fun onClick(view: View?) {
@@ -32,6 +42,8 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
             presenter.dislikeArticle(sku)
             ViewUtils.deselectLikeView(tempView)
         }
+
+        presenter.updateRatings()
     }
 
 
@@ -65,12 +77,16 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
 
     lateinit var pager:ViewPager
     lateinit var presenter: ArticlePagerPresenter
+    lateinit var total :TextView
+    lateinit var ratedCount : TextView
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(R.layout.frag_articles_pager, container, false)
 
         pager = view.view_pager
+        total = view.total
+        ratedCount = view.rated
         adapter = MyPagerAdapter(arrayListOf<Article>(),this)
         pager.adapter = adapter
         presenter = Injection.provideUserListPresenter(context?.applicationContext!!)
