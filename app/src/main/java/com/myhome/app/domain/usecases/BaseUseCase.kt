@@ -11,7 +11,7 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
 
-abstract class BaseUseCase <T> (private val disposables: CompositeDisposable = CompositeDisposable()) {
+abstract class BaseUseCase<T>(private val disposables: CompositeDisposable = CompositeDisposable()) {
 
     protected abstract fun getObservable(params: Params): Observable<T>
 
@@ -28,8 +28,6 @@ abstract class BaseUseCase <T> (private val disposables: CompositeDisposable = C
                 .observeOn(observerSchedulers)
         addDisposable(observable.subscribeWith<DisposableObserver<T>>(observer))
     }
-
-
 
 
     /**

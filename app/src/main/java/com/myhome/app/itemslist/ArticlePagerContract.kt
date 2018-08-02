@@ -4,8 +4,7 @@ import android.os.Bundle
 import com.myhome.app.base.BaseView
 import com.myhome.app.data.model.Article
 
-interface ArticlePagerContract{
-
+interface ArticlePagerContract {
 
 
     interface View : BaseView {
@@ -16,13 +15,13 @@ interface ArticlePagerContract{
 
         fun showLoading()
 
-        fun updateRatings(rated: Int, total:Int)
+        fun updateRatings(rated: Int, total: Int)
 
         fun enableReviewButton()
 
         fun disableReviewButton()
 
-        fun showNextPage(page:Int)
+        fun showNextPage(page: Int)
 
         fun showNoItemsLeft()
 
@@ -34,40 +33,23 @@ interface ArticlePagerContract{
     interface Presenter {
 
 
-
         fun takeView(view: ArticlePagerContract.View)
 
         fun dropView()
-
-        fun saveState(outState: Bundle)
-
-        fun getCachedState(savedInstanceState: Bundle)
-
-        fun getCachedArticles()
 
         fun getArticles()
 
         fun likeArticle(sku: String)
 
-        fun dislikeArticle(sku:String)
+        fun dislikeArticle(sku: String)
 
         fun updateRatings();
 
-        fun setNextpage( currentPage:Int, totalPages:Int)
+        fun setNextpage(currentPage: Int, totalPages: Int)
 
-        fun pageChanged (currentPage:Int, totalPages:Int)
+        fun pageChanged(currentPage: Int, totalPages: Int)
 
     }
-
-
-
-
-
-
-
-
-
-
 
 
 }

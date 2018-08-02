@@ -34,8 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:text="test"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/corner_radius"
             app:layout_constraintLeft_toRightOf="@id/avatar"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

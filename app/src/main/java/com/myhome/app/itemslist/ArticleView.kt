@@ -6,13 +6,13 @@ interface ArticleView {
 
     fun setTitle(title: String)
 
-    fun setImage(url: String,context: Context)
+    fun setImage(url: String, context: Context)
 
     fun setliked()
 
     fun setDisliked()
 
-    fun setViewTag(position:Int, sku:String)
+    fun setViewTag(position: Int, sku: String)
 
 
 }

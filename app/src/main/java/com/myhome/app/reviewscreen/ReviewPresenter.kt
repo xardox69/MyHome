@@ -10,7 +10,7 @@ import io.reactivex.observers.DisposableObserver
 /**
  * Presenter for the review screen
  */
-class ReviewPresenter(private var getArticles: GetArticles, private var subscriberScheduler: Scheduler, private var observerScheduler: Scheduler): ReviewContract.Presenter{
+class ReviewPresenter(private var getArticles: GetArticles, private var subscriberScheduler: Scheduler, private var observerScheduler: Scheduler) : ReviewContract.Presenter {
 
 
     var params: Params = Params.create()
@@ -22,7 +22,7 @@ class ReviewPresenter(private var getArticles: GetArticles, private var subscrib
     }
 
 
-    var mView : ReviewContract.View? = null
+    var mView: ReviewContract.View? = null
 
 
     override fun dropView() {
@@ -36,11 +36,11 @@ class ReviewPresenter(private var getArticles: GetArticles, private var subscrib
 
     override fun getArticles() {
         mView?.showLoading()
-        getArticles.execute(ArticlesObserver(),params,subscriberScheduler,observerScheduler)
+        getArticles.execute(ArticlesObserver(), params, subscriberScheduler, observerScheduler)
     }
 
 
-    inner class ArticlesObserver (): DisposableObserver<MutableList<Article>>() {
+    inner class ArticlesObserver : DisposableObserver<MutableList<Article>>() {
         override fun onError(e: Throwable) {
         }
 
@@ -53,15 +53,6 @@ class ReviewPresenter(private var getArticles: GetArticles, private var subscrib
         }
 
     }
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,6 @@ import com.myhome.app.utils.ActivityUtils
 import com.myhome.app.utils.ViewUtils
 import com.myhome.app.widget.MyPagerAdapter
 import kotlinx.android.synthetic.main.frag_articles_pager.view.*
-
 
 
 class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClickListener, ViewPager.OnPageChangeListener {
@@ -42,13 +40,13 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
     }
 
 
-    private lateinit var pager:ViewPager
+    private lateinit var pager: ViewPager
     private lateinit var presenter: ArticlePagerPresenter
-    private lateinit var total :TextView
-    private lateinit var ratedCount : TextView
-    private lateinit var reviewBtn : Button
+    private lateinit var total: TextView
+    private lateinit var ratedCount: TextView
+    private lateinit var reviewBtn: Button
     private lateinit var snackbar: Snackbar
-    private var currentPosition :Int = 0
+    private var currentPosition: Int = 0
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -59,14 +57,14 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
         ratedCount = view.rated
         reviewBtn = view.review_btn
         reviewBtn.setOnClickListener(this)
-        adapter = MyPagerAdapter(arrayListOf<Article>(),this)
+        adapter = MyPagerAdapter(arrayListOf<Article>(), this)
         pager.adapter = adapter
 
         presenter = Injection.provideUserListPresenter(context?.applicationContext!!)
         presenter.getArticles()
-        snackbar = Snackbar.make(activity!!.findViewById(android.R.id.content),"",Snackbar.LENGTH_SHORT)
+        snackbar = Snackbar.make(activity!!.findViewById(android.R.id.content), "", Snackbar.LENGTH_SHORT)
 
-        if(savedInstanceState!=null){
+        if (savedInstanceState != null) {
             currentPosition = savedInstanceState.getInt(PAGER_KEY)
         }
 
@@ -89,15 +87,15 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(PAGER_KEY,pager.currentItem)
+        outState.putInt(PAGER_KEY, pager.currentItem)
     }
 
     override fun enableReviewButton() {
         reviewBtn.isEnabled = true
     }
 
-    override fun disableReviewButton(){
-        if(reviewBtn.isEnabled){
+    override fun disableReviewButton() {
+        if (reviewBtn.isEnabled) {
             reviewBtn.isEnabled = false
         }
     }
@@ -110,7 +108,7 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
 
     override fun onClick(view: View?) {
 
-        if(view?.id == R.id.like_image || view?.id == R.id.unlike_image ) {
+        if (view?.id == R.id.like_image || view?.id == R.id.unlike_image) {
             val sku: String = view?.getTag(R.id.item_sku) as String
             val tempView = pager.findViewWithTag<View>(sku)
 
@@ -121,11 +119,11 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
                 presenter.dislikeArticle(sku)
                 ViewUtils.deselectLikeView(tempView)
             }
-            presenter.setNextpage(pager.currentItem,adapter.count)
+            presenter.setNextpage(pager.currentItem, adapter.count)
 
-        }else if(view?.id == R.id.review_btn && reviewBtn.isEnabled){
-        ActivityUtils.addFragmentToActivity(activity?.supportFragmentManager!!,ReviewFragment.newInstance()
-                ,ReviewFragment.TAG,R.id.content)
+        } else if (view?.id == R.id.review_btn && reviewBtn.isEnabled) {
+            ActivityUtils.addFragmentToActivity(activity?.supportFragmentManager!!, ReviewFragment.newInstance()
+                    , ReviewFragment.TAG, R.id.content)
         }
 
         presenter.updateRatings()
@@ -134,11 +132,11 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
 
     override fun setData(data: MutableList<Article>) {
         adapter.updateItems(data)
-        pager.setCurrentItem(currentPosition,true)
+        pager.setCurrentItem(currentPosition, true)
     }
 
     override fun onDataLoaded() {
-        if(snackbar.isShown){
+        if (snackbar.isShown) {
             snackbar.dismiss()
         }
     }
@@ -149,7 +147,7 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
     }
 
 
-    override fun showNextPage(page:Int) {
+    override fun showNextPage(page: Int) {
         pager.currentItem = page
     }
 
@@ -157,7 +155,6 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
         snackbar.setText(getString(R.string.lbl_last_item))
         snackbar.show()
     }
-
 
 
     override fun onPageScrollStateChanged(state: Int) {
@@ -168,10 +165,8 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
     }
 
     override fun onPageSelected(position: Int) {
-        presenter.pageChanged(position,adapter.count)
+        presenter.pageChanged(position, adapter.count)
     }
-
-
 
 
 }
