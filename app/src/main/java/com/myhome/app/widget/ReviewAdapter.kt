@@ -19,17 +19,17 @@ class ReviewAdapter  (private var context: Context, private var items:MutableLis
         val v :View
 
         if(viewType == 1){
-            v = LayoutInflater.from(parent?.context).inflate(R.layout.list_item, parent, false)
+            v = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
             return MyListViewHolder(v)
         }
-        v = LayoutInflater.from(parent?.context).inflate(R.layout.grid_item, parent, false)
+        v = LayoutInflater.from(parent.context).inflate(R.layout.grid_item, parent, false)
         return MyGridViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item : Article = items.get(position)
 
-        if(holder?.itemViewType == 1){
+        if(holder.itemViewType == 1){
             GlideApp.with(context).load(item.media[0].uri).into((holder as MyListViewHolder).avatar)
             holder.name.text = item.title
         }else{
@@ -54,7 +54,6 @@ class ReviewAdapter  (private var context: Context, private var items:MutableLis
 
 
     fun updateItems(newUsers:List<Article>){
-        val size : Int = items.size
         items.addAll(newUsers)
         notifyDataSetChanged()
     }

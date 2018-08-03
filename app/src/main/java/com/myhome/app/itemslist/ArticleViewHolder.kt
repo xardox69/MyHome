@@ -24,8 +24,8 @@ class ArticleViewHolder constructor(var itemView:View) : ArticleView{
     var likeImage : ImageView = itemView.like_image
     var dislikeImage : ImageView = itemView.unlike_image
 
-    override fun setTitle(sTitle: String) {
-        title.setText(sTitle)
+    override fun setTitle(title: String) {
+        this.title.text = title
     }
 
     override fun setImage(url: String,context:Context) {

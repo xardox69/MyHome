@@ -20,11 +20,11 @@ class MyPagerAdapter constructor(private val list: MutableList<Article>, private
         val position: Int = view?.getTag(R.id.item_position) as Int
 
 
-        if (view?.id == R.id.like_image && !view.isSelected) {
+        if (view.id == R.id.like_image && !view.isSelected) {
             view.isSelected = true
             list.get(position).like = true
             list.get(position).dislike = false
-        }else if (view?.id == R.id.unlike_image && !view.isSelected){
+        }else if (view.id == R.id.unlike_image && !view.isSelected){
             view.isSelected = true
             list.get(position).like = false
             list.get(position).dislike = true
@@ -45,7 +45,7 @@ class MyPagerAdapter constructor(private val list: MutableList<Article>, private
 
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view = LayoutInflater.from(container?.context)
+        val view = LayoutInflater.from(container.context)
                 .inflate(R.layout.page_layout,container,false)
 
          var item :Article = list.get(position)
@@ -53,7 +53,7 @@ class MyPagerAdapter constructor(private val list: MutableList<Article>, private
         var holder :ArticleViewHolder = ArticleViewHolder(view)
 
         holder.setTitle(item.title)
-        holder.setImage(item.media.get(0).uri,container?.context)
+        holder.setImage(item.media.get(0).uri,container.context)
 
         if(item.like){
             holder.setliked()
@@ -70,7 +70,7 @@ class MyPagerAdapter constructor(private val list: MutableList<Article>, private
         holder.dislikeImage.setOnClickListener(this)
 
 
-        container?.addView(view)
+        container.addView(view)
         view.setTag(item.sku)
         return view
     }

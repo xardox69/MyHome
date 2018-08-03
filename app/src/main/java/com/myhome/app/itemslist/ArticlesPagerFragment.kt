@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -102,23 +101,23 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
         }
     }
 
-    override fun updateRatings(rated: Int, totalNum: Int) {
+    override fun updateRatings(rated: Int, total: Int) {
         ratedCount.setText(rated.toString())
-        total.setText(totalNum.toString())
+        this.total.setText(total.toString())
 
     }
 
     override fun onClick(view: View?) {
 
         if(view?.id == R.id.like_image || view?.id == R.id.unlike_image ) {
-            val sku: String = view?.getTag(R.id.item_sku) as String
+            val sku: String = view.getTag(R.id.item_sku) as String
             val tempView = pager.findViewWithTag<View>(sku)
 
-            if (view?.id == R.id.like_image) {
-                presenter.likeArticle(sku)
+            if (view.id == R.id.like_image) {
+                this.presenter.likeArticle(sku)
                 ViewUtils.deselectDisLikeView(tempView)
-            } else if (view?.id == R.id.unlike_image) {
-                presenter.dislikeArticle(sku)
+            } else if (view.id == R.id.unlike_image) {
+                this.presenter.dislikeArticle(sku)
                 ViewUtils.deselectLikeView(tempView)
             }
             presenter.setNextpage(pager.currentItem,adapter.count)
