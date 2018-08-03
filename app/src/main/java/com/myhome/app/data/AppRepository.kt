@@ -8,11 +8,11 @@ import com.myhome.app.domain.Params
 import io.reactivex.Observable
 import retrofit2.Response
 
-class AppRepository  constructor(private val remoteDataSource: RemoteDataSource,
-                                private val localDataSource: LocalDataSource): IAppRepository  {
+class AppRepository constructor(private val remoteDataSource: RemoteDataSource,
+                                private val localDataSource: LocalDataSource) : IAppRepository {
 
     override fun getItems(params: Params): Observable<Response<GetItemsResponse>> {
-        return  remoteDataSource.getArticles(params).map { response ->
+        return remoteDataSource.getArticles(params).map { response ->
             if (response.isSuccessful) {
                 localDataSource.saveItems(response.body()!!.objects.articles)
             }
@@ -21,7 +21,7 @@ class AppRepository  constructor(private val remoteDataSource: RemoteDataSource,
     }
 
     override fun dislikeArticle(sku: String) {
-       localDataSource.dislikeArticle(sku)
+        localDataSource.dislikeArticle(sku)
     }
 
 
@@ -33,11 +33,9 @@ class AppRepository  constructor(private val remoteDataSource: RemoteDataSource,
         localDataSource.dislikeArticle(sku)
     }
 
-    override fun getCachedItems() :Observable<MutableList<Article>> {
+    override fun getCachedItems(): Observable<MutableList<Article>> {
         return localDataSource.getItems()
     }
-
-
 
 
 }

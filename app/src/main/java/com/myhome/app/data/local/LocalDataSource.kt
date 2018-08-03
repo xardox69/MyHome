@@ -8,17 +8,17 @@ import java.util.*
 /**
  * Local data source to store and save data locally
  */
-class LocalDataSource constructor( private val mDataDao: DataDao): ILocalDataSource {
+class LocalDataSource constructor(private val mDataDao: DataDao) : ILocalDataSource {
     override fun getItems(): Observable<MutableList<Article>> {
         return Observable.just(mDataDao.getArticles())
     }
 
     override fun dislikeArticle(sku: String) {
-        mDataDao.likeArticle(false,sku,true)
+        mDataDao.likeArticle(false, sku, true)
     }
 
     override fun likeArticle(sku: String) {
-        mDataDao.likeArticle(true,sku,false)
+        mDataDao.likeArticle(true, sku, false)
     }
 
     override fun saveItems(items: MutableList<Article>) {
@@ -33,7 +33,7 @@ class LocalDataSource constructor( private val mDataDao: DataDao): ILocalDataSou
         @Volatile
         private var INSTANCE: LocalDataSource? = null
 
-        fun getInstance(mDataDao:DataDao): LocalDataSource {
+        fun getInstance(mDataDao: DataDao): LocalDataSource {
             if (INSTANCE == null) {
                 INSTANCE = LocalDataSource(mDataDao)
 
@@ -43,15 +43,12 @@ class LocalDataSource constructor( private val mDataDao: DataDao): ILocalDataSou
     }
 
 
-
-
-
     override fun saveItem(item: Article) {
-            mDataDao.insertUser(item)
+        mDataDao.insertUser(item)
     }
 
     override fun getItems(sku: String): Observable<Article> {
-       return Observable.just(mDataDao.getArticleWithSKU(sku));
+        return Observable.just(mDataDao.getArticleWithSKU(sku));
     }
 
 

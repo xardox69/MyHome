@@ -11,14 +11,14 @@ import io.reactivex.Observable
 class UpdateArticle constructor(private val repository: AppRepository) : BaseUseCase<Boolean>() {
 
 
-    override fun getObservable(params: Params) :Observable<Boolean>{
-        if(params.getInt(STATE_KEY,-1) == LIKE_STATE_VAL){
-            repository.likeArticle(params.getString(ARTICLE_SKU_KEY,"")!!)
-        }else if(params.getInt(STATE_KEY,-1) == DISLIKE_STATE_KEY){
-            repository.disLikeArticle(params.getString(ARTICLE_SKU_KEY,"")!!)
+    override fun getObservable(params: Params): Observable<Boolean> {
+        if (params.getInt(STATE_KEY, -1) == LIKE_STATE_VAL) {
+            repository.likeArticle(params.getString(ARTICLE_SKU_KEY, "")!!)
+        } else if (params.getInt(STATE_KEY, -1) == DISLIKE_STATE_KEY) {
+            repository.disLikeArticle(params.getString(ARTICLE_SKU_KEY, "")!!)
         }
 
         return Observable.just(true)
     }
 
-    }
+}

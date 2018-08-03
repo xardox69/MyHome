@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.SwitchCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,14 +14,11 @@ import android.widget.Switch
 import com.myhome.app.Injection
 import com.myhome.app.R
 import com.myhome.app.data.model.Article
-import com.myhome.app.itemslist.ArticlesPagerFragment
 import com.myhome.app.utils.ListState
-import com.myhome.app.widget.MyPagerAdapter
 import com.myhome.app.widget.ReviewAdapter
 import kotlinx.android.synthetic.main.review_ffragment.view.*
 
-class ReviewFragment:Fragment() , ReviewContract.View, CompoundButton.OnCheckedChangeListener {
-
+class ReviewFragment : Fragment(), ReviewContract.View, CompoundButton.OnCheckedChangeListener {
 
 
     override fun setData(items: MutableList<Article>) {
@@ -30,11 +26,11 @@ class ReviewFragment:Fragment() , ReviewContract.View, CompoundButton.OnCheckedC
     }
 
     companion object {
-        val TAG = "ArticlesPagerFragment"
+        const val TAG = "ArticlesPagerFragment"
 
         fun newInstance(): ReviewFragment {
-            var reviewFragment = ReviewFragment()
-            var bundle = Bundle()
+            val reviewFragment = ReviewFragment()
+            val bundle = Bundle()
             reviewFragment.arguments = bundle
             return reviewFragment
         }
@@ -43,23 +39,23 @@ class ReviewFragment:Fragment() , ReviewContract.View, CompoundButton.OnCheckedC
     private lateinit var recyclerView: RecyclerView
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var gridLayoutManager: GridLayoutManager
-    private lateinit var myAdapter : ReviewAdapter
+    private lateinit var myAdapter: ReviewAdapter
     private lateinit var presenter: ReviewPresenter
     private lateinit var switch: Switch
     private lateinit var snackbar: Snackbar
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view = inflater.inflate(R.layout.review_ffragment, container, false)
+        val view = inflater.inflate(R.layout.review_ffragment, container, false)
         recyclerView = view.recycler
         switch = view.simpleSwitch
         switch.setOnCheckedChangeListener(this)
 
         linearLayoutManager = LinearLayoutManager(inflater.context)
-        gridLayoutManager = GridLayoutManager(inflater.context,2)
-        snackbar = Snackbar.make(activity!!.findViewById(android.R.id.content),"", Snackbar.LENGTH_SHORT)
+        gridLayoutManager = GridLayoutManager(inflater.context, 2)
+        snackbar = Snackbar.make(activity!!.findViewById(android.R.id.content), "", Snackbar.LENGTH_SHORT)
         recyclerView.layoutManager = gridLayoutManager
-        myAdapter = ReviewAdapter(inflater.context,arrayListOf<Article>(),ListState.HORIZONTAL.value)
+        myAdapter = ReviewAdapter(inflater.context, arrayListOf<Article>(), ListState.HORIZONTAL.value)
         recyclerView.adapter = myAdapter
         presenter = Injection.provideReviewPresenter(inflater.context.applicationContext)
 
@@ -79,13 +75,13 @@ class ReviewFragment:Fragment() , ReviewContract.View, CompoundButton.OnCheckedC
 
     override fun onCheckedChanged(p0: CompoundButton?, isChecked: Boolean) {
 
-        if(isChecked){
+        if (isChecked) {
 
-            switch.setText(getString(R.string.lbl_grid))
+            switch.text = getString(R.string.lbl_grid)
             recyclerView.layoutManager = linearLayoutManager
             myAdapter.type = ListState.VERTICAL.value
-        }else{
-            switch.setText(getString(R.string.lbl_list))
+        } else {
+            switch.text = getString(R.string.lbl_list)
             recyclerView.layoutManager = gridLayoutManager
             myAdapter.type = ListState.HORIZONTAL.value
 
@@ -101,11 +97,10 @@ class ReviewFragment:Fragment() , ReviewContract.View, CompoundButton.OnCheckedC
     }
 
     override fun dismissLoading() {
-        if(snackbar.isShown){
+        if (snackbar.isShown) {
             snackbar.dismiss()
         }
     }
-
 
 
 }

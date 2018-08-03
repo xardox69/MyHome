@@ -1,14 +1,13 @@
 package com.myhome.app.widget
 
 
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup;
+import android.view.ViewGroup
 import com.myhome.app.R
 import com.myhome.app.data.model.Article
 import com.myhome.app.itemslist.ArticleViewHolder
-import kotlinx.android.synthetic.main.page_layout.view.*
 
 class MyPagerAdapter constructor(private val list: MutableList<Article>, private val clickListener :View.OnClickListener) : PagerAdapter(),View.OnClickListener {
 
@@ -22,12 +21,12 @@ class MyPagerAdapter constructor(private val list: MutableList<Article>, private
 
         if (view.id == R.id.like_image && !view.isSelected) {
             view.isSelected = true
-            list.get(position).like = true
-            list.get(position).dislike = false
+            list[position].like = true
+            list[position].dislike = false
         }else if (view.id == R.id.unlike_image && !view.isSelected){
             view.isSelected = true
-            list.get(position).like = false
-            list.get(position).dislike = true
+            list[position].like = false
+            list[position].dislike = true
         }
         notifyDataSetChanged()
 
@@ -48,12 +47,12 @@ class MyPagerAdapter constructor(private val list: MutableList<Article>, private
         val view = LayoutInflater.from(container.context)
                 .inflate(R.layout.page_layout,container,false)
 
-         var item :Article = list.get(position)
+         val item :Article = list[position]
 
-        var holder :ArticleViewHolder = ArticleViewHolder(view)
+        val holder = ArticleViewHolder(view)
 
         holder.setTitle(item.title)
-        holder.setImage(item.media.get(0).uri,container.context)
+        holder.setImage(item.media[0].uri,container.context)
 
         if(item.like){
             holder.setliked()
@@ -71,7 +70,7 @@ class MyPagerAdapter constructor(private val list: MutableList<Article>, private
 
 
         container.addView(view)
-        view.setTag(item.sku)
+        view.tag = item.sku
         return view
     }
 
@@ -82,7 +81,7 @@ class MyPagerAdapter constructor(private val list: MutableList<Article>, private
     }
 
     fun updateItems(updates: MutableList<Article>){
-        list.clear();
+        list.clear()
         list.addAll(updates)
         notifyDataSetChanged()
     }

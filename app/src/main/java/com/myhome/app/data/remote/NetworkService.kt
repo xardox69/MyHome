@@ -11,7 +11,6 @@ import retrofit2.http.Query
 interface NetworkService {
 
 
-
     @GET("categories/100/articles")
     fun getArticles(@Query(APP_DOMAIN) appDomain: String, @Query(APIConstants.LOCALE) locale: String,
                     @Query(APIConstants.LIMIT) limit: Int): Observable<Response<GetItemsResponse>>

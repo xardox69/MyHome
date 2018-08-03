@@ -21,10 +21,9 @@ class RemoteDataSource constructor(private val subscriberScheduler: Scheduler,
                                    private val observerScheduler: Scheduler) : IRemoteDataSource {
 
 
-
     override fun getArticles(params: Params): Observable<Response<GetItemsResponse>> {
-        return service.getArticles(params.getString(APIConstants.APP_DOMAIN,"1")!!, params.getString(APIConstants.LOCALE,"de_DE")!!,
-                params.getInt(APIConstants.LIMIT,10)).subscribeOn(subscriberScheduler)
+        return service.getArticles(params.getString(APIConstants.APP_DOMAIN, "1")!!, params.getString(APIConstants.LOCALE, "de_DE")!!,
+                params.getInt(APIConstants.LIMIT, 10)).subscribeOn(subscriberScheduler)
                 .observeOn(observerScheduler)
     }
 
@@ -45,7 +44,7 @@ class RemoteDataSource constructor(private val subscriberScheduler: Scheduler,
     }
 
 
-    private var  baseUrl: String = "https://api-mobile.home24.com/api/v2.0/"
+    private var baseUrl: String = "https://api-mobile.home24.com/api/v2.0/"
 
     private var httpClient: OkHttpClient = getHTTPClinet()
 
@@ -62,12 +61,9 @@ class RemoteDataSource constructor(private val subscriberScheduler: Scheduler,
     }
 
 
-    private  fun getService() : NetworkService{
+    private fun getService(): NetworkService {
         return retrofit.create(NetworkService::class.java)
     }
-
-
-
 
 
     private fun getRetrofit(): Retrofit {
@@ -90,13 +86,6 @@ class RemoteDataSource constructor(private val subscriberScheduler: Scheduler,
         }
         return logger
     }
-
-
-
-
-
-
-
 
 
 }

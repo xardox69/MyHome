@@ -8,12 +8,12 @@ import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public data class ArticleMedia(
 
 
         @JsonProperty("uri")
-        var uri:String) : Parcelable {
+        var uri: String) : Parcelable {
     constructor(parcel: Parcel) : this(parcel.readString())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

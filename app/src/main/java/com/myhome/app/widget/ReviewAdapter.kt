@@ -27,7 +27,7 @@ class ReviewAdapter  (private var context: Context, private var items:MutableLis
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item : Article = items.get(position)
+        val item : Article = items[position]
 
         if(holder.itemViewType == 1){
             GlideApp.with(context).load(item.media[0].uri).into((holder as MyListViewHolder).avatar)
@@ -44,7 +44,7 @@ class ReviewAdapter  (private var context: Context, private var items:MutableLis
     }
 
     override fun getItemViewType(position: Int): Int {
-        return type;
+        return type
     }
 
     override fun getItemCount(): Int {

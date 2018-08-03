@@ -4,4 +4,6 @@
     <string name="lbl_list">List</string>
     <string name="lbl_last_item">Last article.</string>
     <string name="lbl_loading_data">Loading data ...</string>
+    <string name="lbl_review">Review</string>
+    <string name="lbl_start">Start</string>
 </resources>

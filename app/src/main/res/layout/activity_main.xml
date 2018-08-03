@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:onClick="onStartClicked"
         android:background="@drawable/button_selector"
-        android:text="Start"/>
+        android:text="@string/lbl_start"/>
 
     <FrameLayout
         android:id="@+id/content"
