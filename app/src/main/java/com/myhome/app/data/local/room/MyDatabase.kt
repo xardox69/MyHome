@@ -15,21 +15,4 @@ abstract class MyDatabase : RoomDatabase() {
 
     abstract fun taskDao(): DataDao
 
-    companion object {
-
-        private var INSTANCE: MyDatabase? = null
-
-        private val sLock = Any()
-
-        fun getInstance(context: Context): MyDatabase {
-            synchronized(sLock) {
-                if (INSTANCE == null) {
-                    INSTANCE = Room.inMemoryDatabaseBuilder(context.getApplicationContext(),
-                            MyDatabase::class.java).allowMainThreadQueries()
-                            .build()
-                }
-                return INSTANCE as MyDatabase
-            }
-        }
-    }
 }

@@ -13,12 +13,13 @@ import java.util.concurrent.TimeUnit
 
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.jackson.JacksonConverterFactory
+import javax.inject.Inject
 
 /**
  * Remote data source to get the data from remote location
  */
-class RemoteDataSource constructor(private val subscriberScheduler: Scheduler,
-                                   private val observerScheduler: Scheduler) : IRemoteDataSource {
+class RemoteDataSource @Inject constructor(private val subscriberScheduler: Scheduler,
+                                           private val observerScheduler: Scheduler) : IRemoteDataSource {
 
 
     override fun getArticles(params: Params): Observable<Response<GetItemsResponse>> {

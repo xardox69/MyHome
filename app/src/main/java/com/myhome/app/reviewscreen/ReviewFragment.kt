@@ -11,12 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.Switch
-import com.myhome.app.Injection
+import com.myhome.app.MyApp
 import com.myhome.app.R
 import com.myhome.app.data.model.Article
 import com.myhome.app.utils.ListState
 import com.myhome.app.widget.ReviewAdapter
 import kotlinx.android.synthetic.main.review_ffragment.view.*
+import javax.inject.Inject
 
 class ReviewFragment : Fragment(), ReviewContract.View, CompoundButton.OnCheckedChangeListener {
 
@@ -40,13 +41,14 @@ class ReviewFragment : Fragment(), ReviewContract.View, CompoundButton.OnChecked
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var myAdapter: ReviewAdapter
-    private lateinit var presenter: ReviewPresenter
+    @Inject lateinit var presenter: ReviewPresenter
     private lateinit var switch: Switch
     private lateinit var snackbar: Snackbar
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.review_ffragment, container, false)
+        (activity?.application as MyApp).appComponent.inject(this)
         recyclerView = view.recycler
         switch = view.simpleSwitch
         switch.setOnCheckedChangeListener(this)
@@ -57,7 +59,7 @@ class ReviewFragment : Fragment(), ReviewContract.View, CompoundButton.OnChecked
         recyclerView.layoutManager = gridLayoutManager
         myAdapter = ReviewAdapter(inflater.context, arrayListOf<Article>(), ListState.HORIZONTAL.value)
         recyclerView.adapter = myAdapter
-        presenter = Injection.provideReviewPresenter(inflater.context.applicationContext)
+
 
         presenter.getArticles()
         return view

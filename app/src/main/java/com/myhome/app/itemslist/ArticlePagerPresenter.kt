@@ -8,8 +8,9 @@ import com.myhome.app.domain.usecases.GetArticles
 import com.myhome.app.domain.usecases.UpdateArticle
 import io.reactivex.Scheduler
 import io.reactivex.observers.DisposableObserver
+import javax.inject.Inject
 
-class ArticlePagerPresenter(private var getArticles: GetArticles, private var updateArticle: UpdateArticle,
+class ArticlePagerPresenter @Inject constructor(private var getArticles: GetArticles, private var updateArticle: UpdateArticle,
                             private var subscriberScheduler: Scheduler, private var observerScheduler: Scheduler) : ArticlePagerContract.Presenter {
 
 

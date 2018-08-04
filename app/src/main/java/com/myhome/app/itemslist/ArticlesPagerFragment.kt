@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import com.myhome.app.Injection
+import com.myhome.app.MyApp
 import com.myhome.app.R
 import com.myhome.app.data.model.Article
 import com.myhome.app.reviewscreen.ReviewFragment
@@ -17,6 +17,7 @@ import com.myhome.app.utils.ActivityUtils
 import com.myhome.app.utils.ViewUtils
 import com.myhome.app.widget.MyPagerAdapter
 import kotlinx.android.synthetic.main.frag_articles_pager.view.*
+import javax.inject.Inject
 
 
 class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClickListener, ViewPager.OnPageChangeListener {
@@ -41,7 +42,7 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
 
 
     private lateinit var pager: ViewPager
-    private lateinit var presenter: ArticlePagerPresenter
+    @Inject lateinit var presenter: ArticlePagerPresenter
     private lateinit var total: TextView
     private lateinit var ratedCount: TextView
     private lateinit var reviewBtn: Button
@@ -51,7 +52,7 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.frag_articles_pager, container, false)
-
+        (activity?.application as MyApp).appComponent.inject(this)
         pager = view.view_pager
         total = view.total
         ratedCount = view.rated
@@ -59,8 +60,6 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
         reviewBtn.setOnClickListener(this)
         adapter = MyPagerAdapter(arrayListOf<Article>(), this)
         pager.adapter = adapter
-
-        presenter = Injection.provideUserListPresenter(context?.applicationContext!!)
         presenter.getArticles()
         snackbar = Snackbar.make(activity!!.findViewById(android.R.id.content), "", Snackbar.LENGTH_SHORT)
 

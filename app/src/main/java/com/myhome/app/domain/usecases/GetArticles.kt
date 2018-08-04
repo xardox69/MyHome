@@ -1,13 +1,15 @@
 package com.myhome.app.domain.usecases
 
 import com.myhome.app.data.AppRepository
+import com.myhome.app.data.IAppRepository
 import com.myhome.app.data.model.Article
 import com.myhome.app.domain.Params
 import io.reactivex.Observable
+import javax.inject.Inject
 
 
 @Suppress("NAME_SHADOWING")
-class GetArticles  constructor(private val repository: AppRepository) : BaseUseCase<MutableList<Article>>() {
+class GetArticles @Inject constructor(private val repository: IAppRepository) : BaseUseCase<MutableList<Article>>() {
 
 
 

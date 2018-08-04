@@ -1,14 +1,16 @@
 package com.myhome.app.domain.usecases
 
 import com.myhome.app.data.AppRepository
+import com.myhome.app.data.IAppRepository
 import com.myhome.app.domain.Params
 import com.myhome.app.itemslist.ArticlePagerPresenter.Companion.ARTICLE_SKU_KEY
 import com.myhome.app.itemslist.ArticlePagerPresenter.Companion.DISLIKE_STATE_KEY
 import com.myhome.app.itemslist.ArticlePagerPresenter.Companion.LIKE_STATE_VAL
 import com.myhome.app.itemslist.ArticlePagerPresenter.Companion.STATE_KEY
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class UpdateArticle constructor(private val repository: AppRepository) : BaseUseCase<Boolean>() {
+class UpdateArticle @Inject constructor(private val repository: IAppRepository) : BaseUseCase<Boolean>() {
 
 
     override fun getObservable(params: Params): Observable<Boolean> {

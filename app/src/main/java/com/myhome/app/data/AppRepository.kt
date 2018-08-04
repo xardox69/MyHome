@@ -7,9 +7,10 @@ import com.myhome.app.data.remote.RemoteDataSource
 import com.myhome.app.domain.Params
 import io.reactivex.Observable
 import retrofit2.Response
+import javax.inject.Inject
 
-class AppRepository constructor(private val remoteDataSource: RemoteDataSource,
-                                private val localDataSource: LocalDataSource) : IAppRepository {
+class AppRepository @Inject constructor(private val remoteDataSource: RemoteDataSource,
+                                            private val localDataSource: LocalDataSource) : IAppRepository {
 
     override fun getItems(params: Params): Observable<Response<GetItemsResponse>> {
         return remoteDataSource.getArticles(params).map { response ->

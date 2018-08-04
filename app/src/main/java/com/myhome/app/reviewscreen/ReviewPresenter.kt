@@ -6,11 +6,12 @@ import com.myhome.app.domain.Params
 import com.myhome.app.domain.usecases.GetArticles
 import io.reactivex.Scheduler
 import io.reactivex.observers.DisposableObserver
+import javax.inject.Inject
 
 /**
  * Presenter for the review screen
  */
-class ReviewPresenter(private var getArticles: GetArticles, private var subscriberScheduler: Scheduler, private var observerScheduler: Scheduler) : ReviewContract.Presenter {
+class ReviewPresenter @Inject constructor(private var getArticles: GetArticles, private var subscriberScheduler: Scheduler, private var observerScheduler: Scheduler) : ReviewContract.Presenter {
 
 
     var params: Params = Params.create()
