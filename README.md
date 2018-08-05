@@ -24,6 +24,8 @@ A simple Android application which shows home items listings.
 *  [Retrofit2](http://square.github.io/retrofit/) for Rest API communication.
 *  [Glide](https://github.com/bumptech/glide) for image loading
 *  [Mockito](http://site.mockito.org) for mocking in test 
+*  [Dagger](https://github.com/google/dagger) for dependency injection 
+*  [Jackson](https://github.com/FasterXML/jackson-core) for pasing json response 
  
  
  
