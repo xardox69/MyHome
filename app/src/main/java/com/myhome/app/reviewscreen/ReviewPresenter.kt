@@ -43,6 +43,7 @@ class ReviewPresenter @Inject constructor(private var getArticles: GetArticles, 
 
     inner class ArticlesObserver : DisposableObserver<MutableList<Article>>() {
         override fun onError(e: Throwable) {
+            mView?.showNetworkError()
         }
 
         override fun onNext(t: MutableList<Article>) {

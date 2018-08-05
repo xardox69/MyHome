@@ -85,6 +85,7 @@ class ArticlePagerPresenter @Inject constructor(private var getArticles: GetArti
 
     inner class ArticlesObserver(private var updateItems: Boolean) : DisposableObserver<MutableList<Article>>() {
         override fun onError(e: Throwable) {
+            mView?.showNetworkError()
         }
 
         override fun onNext(t: MutableList<Article>) {
