@@ -20,6 +20,10 @@ import kotlinx.android.synthetic.main.review_ffragment.view.*
 import javax.inject.Inject
 
 class ReviewFragment : Fragment(), ReviewContract.View, CompoundButton.OnCheckedChangeListener {
+    override fun showNetworkError() {
+        snackbar.setText(getString(R.string.lbl_network_fail))
+        snackbar.show()
+    }
 
 
     override fun setData(items: MutableList<Article>) {

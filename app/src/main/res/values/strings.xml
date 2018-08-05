@@ -6,4 +6,5 @@
     <string name="lbl_loading_data">Loading data ...</string>
     <string name="lbl_review">Review</string>
     <string name="lbl_start">Start</string>
+    <string name="lbl_network_fail">Unable to make network call</string>
 </resources>

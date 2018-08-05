@@ -21,8 +21,9 @@ import javax.inject.Inject
 
 
 class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClickListener, ViewPager.OnPageChangeListener {
-    override fun showLastItem() {
-    }
+
+
+
 
 
     private lateinit var adapter: MyPagerAdapter
@@ -166,6 +167,11 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
 
     override fun onPageSelected(position: Int) {
         presenter.pageChanged(position, adapter.count)
+    }
+
+    override fun showNetworkError() {
+        snackbar.setText(getString(R.string.lbl_network_fail))
+        snackbar.show()
     }
 
 
