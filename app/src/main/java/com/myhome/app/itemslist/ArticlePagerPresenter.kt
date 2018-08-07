@@ -40,7 +40,7 @@ class ArticlePagerPresenter @Inject constructor(private var getArticles: GetArti
     }
 
 
-    var params: Params = Params.create()
+    private var params: Params = Params.create()
 
 
     override fun getArticles() {
@@ -55,7 +55,7 @@ class ArticlePagerPresenter @Inject constructor(private var getArticles: GetArti
     }
 
 
-    var mView: ArticlePagerContract.View? = null
+    private var mView: ArticlePagerContract.View? = null
 
 
     override fun dropView() {
@@ -83,7 +83,7 @@ class ArticlePagerPresenter @Inject constructor(private var getArticles: GetArti
     }
 
 
-    inner class ArticlesObserver(private var updateItems: Boolean) : DisposableObserver<MutableList<Article>>() {
+    private inner class ArticlesObserver(private var updateItems: Boolean) : DisposableObserver<MutableList<Article>>() {
         override fun onError(e: Throwable) {
             mView?.showNetworkError()
         }
@@ -117,7 +117,7 @@ class ArticlePagerPresenter @Inject constructor(private var getArticles: GetArti
     }
 
 
-    inner class ArticlesStateObserver : DisposableObserver<Boolean>() {
+    private inner class ArticlesStateObserver : DisposableObserver<Boolean>() {
         override fun onError(e: Throwable) {
         }
 

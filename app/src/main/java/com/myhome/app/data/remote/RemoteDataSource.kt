@@ -29,22 +29,6 @@ class RemoteDataSource @Inject constructor(private val subscriberScheduler: Sche
     }
 
 
-    companion object {
-
-        @Volatile
-        private var INSTANCE: RemoteDataSource? = null
-
-        fun getInstance(subscriberScheduler: Scheduler,
-                        observerScheduler: Scheduler): RemoteDataSource {
-            if (INSTANCE == null) {
-                INSTANCE = RemoteDataSource(subscriberScheduler, observerScheduler)
-
-            }
-            return INSTANCE as RemoteDataSource
-        }
-    }
-
-
     private var baseUrl: String = "https://api-mobile.home24.com/api/v2.0/"
 
     private var httpClient: OkHttpClient = getHTTPClinet()

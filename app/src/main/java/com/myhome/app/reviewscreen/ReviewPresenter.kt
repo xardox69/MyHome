@@ -14,7 +14,7 @@ import javax.inject.Inject
 class ReviewPresenter @Inject constructor(private var getArticles: GetArticles, private var subscriberScheduler: Scheduler, private var observerScheduler: Scheduler) : ReviewContract.Presenter {
 
 
-    var params: Params = Params.create()
+    private var params: Params = Params.create()
 
     init {
         params.putString(APIConstants.APP_DOMAIN, "1")
@@ -23,7 +23,7 @@ class ReviewPresenter @Inject constructor(private var getArticles: GetArticles, 
     }
 
 
-    var mView: ReviewContract.View? = null
+    private var mView: ReviewContract.View? = null
 
 
     override fun dropView() {
@@ -41,7 +41,7 @@ class ReviewPresenter @Inject constructor(private var getArticles: GetArticles, 
     }
 
 
-    inner class ArticlesObserver : DisposableObserver<MutableList<Article>>() {
+    private inner class ArticlesObserver : DisposableObserver<MutableList<Article>>() {
         override fun onError(e: Throwable) {
             mView?.showNetworkError()
         }
