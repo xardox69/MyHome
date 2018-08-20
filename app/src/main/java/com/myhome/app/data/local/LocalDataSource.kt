@@ -3,7 +3,6 @@ package com.myhome.app.data.local
 import com.myhome.app.data.local.room.DataDao
 import com.myhome.app.data.model.Article
 import io.reactivex.Observable
-import java.util.*
 
 /**
  * Local data source to store and save data locally
@@ -34,7 +33,7 @@ class LocalDataSource constructor(private val mDataDao: DataDao) : ILocalDataSou
     }
 
     override fun getItems(sku: String): Observable<Article> {
-        return Observable.just(mDataDao.getArticleWithSKU(sku));
+        return Observable.just(mDataDao.getArticleWithSKU(sku))
     }
 
 

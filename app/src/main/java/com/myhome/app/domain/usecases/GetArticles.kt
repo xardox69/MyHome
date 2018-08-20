@@ -1,6 +1,5 @@
 package com.myhome.app.domain.usecases
 
-import com.myhome.app.data.AppRepository
 import com.myhome.app.data.IAppRepository
 import com.myhome.app.data.model.Article
 import com.myhome.app.domain.Params

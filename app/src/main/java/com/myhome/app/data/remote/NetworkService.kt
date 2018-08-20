@@ -1,7 +1,7 @@
 package com.myhome.app.data.remote
 
 import com.myhome.app.data.model.GetItemsResponse
-import com.myhome.app.data.remote.APIConstants.Companion.APP_DOMAIN
+import com.myhome.app.data.remote.APIConstants.APP_DOMAIN
 import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.GET

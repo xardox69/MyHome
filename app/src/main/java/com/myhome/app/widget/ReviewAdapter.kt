@@ -9,6 +9,7 @@ import android.view.View
 import android.content.Context
 import android.view.LayoutInflater
 import com.myhome.app.R
+import com.myhome.app.utils.ListState
 import kotlinx.android.synthetic.main.grid_item.view.*
 import kotlinx.android.synthetic.main.list_item.view.*
 
@@ -18,7 +19,7 @@ class ReviewAdapter  (private var context: Context, private var items:MutableLis
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val v :View
 
-        if(viewType == 1){
+        if(viewType == ListState.VERTICAL.value){
             v = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
             return MyListViewHolder(v)
         }

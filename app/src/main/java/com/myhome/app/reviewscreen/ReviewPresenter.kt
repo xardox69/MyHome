@@ -17,9 +17,9 @@ class ReviewPresenter @Inject constructor(private var getArticles: GetArticles, 
     private var params: Params = Params.create()
 
     init {
-        params.putString(APIConstants.APP_DOMAIN, "1")
+        params.putString(APIConstants.APP_DOMAIN, APIConstants.CURRENT_DOMAIN)
         params.putString(APIConstants.LOCALE, APIConstants.CURRENT_LOCALE)
-        params.putInt(APIConstants.LIMIT, APIConstants.CURENT_LIMIT)
+        params.putInt(APIConstants.LIMIT, APIConstants.CURRENT_LIMIT)
     }
 
 

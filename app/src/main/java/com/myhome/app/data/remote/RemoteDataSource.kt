@@ -1,6 +1,9 @@
 package com.myhome.app.data.remote
 
 import com.myhome.app.data.model.GetItemsResponse
+import com.myhome.app.data.remote.APIConstants.CURRENT_DOMAIN
+import com.myhome.app.data.remote.APIConstants.CURRENT_LIMIT
+import com.myhome.app.data.remote.APIConstants.CURRENT_LOCALE
 import com.myhome.app.domain.Params
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -23,8 +26,8 @@ class RemoteDataSource @Inject constructor(private val subscriberScheduler: Sche
 
 
     override fun getArticles(params: Params): Observable<Response<GetItemsResponse>> {
-        return service.getArticles(params.getString(APIConstants.APP_DOMAIN, "1")!!, params.getString(APIConstants.LOCALE, "de_DE")!!,
-                params.getInt(APIConstants.LIMIT, 10)).subscribeOn(subscriberScheduler)
+        return service.getArticles(params.getString(APIConstants.APP_DOMAIN, CURRENT_DOMAIN)!!, params.getString(APIConstants.LOCALE, CURRENT_LOCALE)!!,
+                params.getInt(APIConstants.LIMIT, CURRENT_LIMIT)).subscribeOn(subscriberScheduler)
                 .observeOn(observerScheduler)
     }
 
@@ -65,9 +68,9 @@ class RemoteDataSource @Inject constructor(private val subscriberScheduler: Sche
         //TODO: For now just log
         val isDebug = true
         if (isDebug) {
-            logger.setLevel(HttpLoggingInterceptor.Level.BODY)
+            logger.level = HttpLoggingInterceptor.Level.BODY
         } else {
-            logger.setLevel(HttpLoggingInterceptor.Level.NONE)
+            logger.level = HttpLoggingInterceptor.Level.NONE
         }
         return logger
     }

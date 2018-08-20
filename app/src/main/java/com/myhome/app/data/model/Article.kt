@@ -7,7 +7,6 @@ import android.arch.persistence.room.TypeConverters
 import android.support.annotation.NonNull
 import android.support.annotation.Nullable
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.myhome.app.data.local.room.MediaTypeConverter
 
@@ -15,7 +14,7 @@ import com.myhome.app.data.local.room.MediaTypeConverter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @TypeConverters(MediaTypeConverter::class)
 @Entity(tableName = "article")
-public data class Article(
+data class Article(
 
 
         @PrimaryKey

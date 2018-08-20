@@ -1,6 +1,5 @@
 package com.myhome.app.itemslist
 
-import android.os.Bundle
 import com.myhome.app.data.model.Article
 import com.myhome.app.data.remote.APIConstants
 import com.myhome.app.domain.Params
@@ -49,9 +48,9 @@ class ArticlePagerPresenter @Inject constructor(private var getArticles: GetArti
     }
 
     init {
-        params.putString(APIConstants.APP_DOMAIN, "1")
+        params.putString(APIConstants.APP_DOMAIN, APIConstants.CURRENT_DOMAIN)
         params.putString(APIConstants.LOCALE, APIConstants.CURRENT_LOCALE)
-        params.putInt(APIConstants.LIMIT, APIConstants.CURENT_LIMIT)
+        params.putInt(APIConstants.LIMIT, APIConstants.CURRENT_LIMIT)
     }
 
 

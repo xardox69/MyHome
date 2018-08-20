@@ -22,6 +22,6 @@ class ReviewModule{
 
     fun provideGetArtclesUsecase(repository: IAppRepository) : GetArticles {
 
-        return GetArticles(repository);
+        return GetArticles(repository)
     }
 }

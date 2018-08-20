@@ -21,13 +21,13 @@ class ArticleListModule {
                                      @Named(AppModule.ObserverScheduler) observerScheduler: Scheduler): ArticlePagerPresenter = ArticlePagerPresenter(getArticles, updateArticle, subscriberScheduler, observerScheduler)
 
 
-    fun provideGetArtclesUsecase(repository: IAppRepository): GetArticles {
-        return GetArticles(repository);
-    }
+    fun provideGetArtclesUsecase(repository: IAppRepository): GetArticles =
+        GetArticles(repository)
 
-    fun provideUpdateArtclesUsecase(repository: IAppRepository): UpdateArticle {
-        return UpdateArticle(repository);
-    }
+
+    fun provideUpdateArtclesUsecase(repository: IAppRepository): UpdateArticle =
+        UpdateArticle(repository)
+
 
 
 }
