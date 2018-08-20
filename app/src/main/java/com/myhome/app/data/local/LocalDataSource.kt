@@ -26,21 +26,7 @@ class LocalDataSource constructor(private val mDataDao: DataDao) : ILocalDataSou
             mDataDao.insertUser(item)
         }
     }
-
-
-    companion object {
-
-        @Volatile
-        private var INSTANCE: LocalDataSource? = null
-
-        fun getInstance(mDataDao: DataDao): LocalDataSource {
-            if (INSTANCE == null) {
-                INSTANCE = LocalDataSource(mDataDao)
-
-            }
-            return INSTANCE as LocalDataSource
-        }
-    }
+    
 
 
     override fun saveItem(item: Article) {
