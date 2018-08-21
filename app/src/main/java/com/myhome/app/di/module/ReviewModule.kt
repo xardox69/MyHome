@@ -20,8 +20,8 @@ class ReviewModule{
             = ReviewPresenter(getArticles,subscriberScheduler,observerScheduler)
 
 
-    fun provideGetArtclesUsecase(repository: IAppRepository) : GetArticles {
+    fun provideGetArtclesUsecase(repository: IAppRepository) : GetArticles =
 
-        return GetArticles(repository)
-    }
+         GetArticles(repository)
+
 }

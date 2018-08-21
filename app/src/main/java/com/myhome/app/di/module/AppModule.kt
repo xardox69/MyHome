@@ -41,31 +41,31 @@ class AppModule(private val app: Application) {
 
     @Provides
     @Singleton
-    fun provideRepository(localDataSource: LocalDataSource, remoteDataSource: RemoteDataSource): IAppRepository {
-        return AppRepository(remoteDataSource, localDataSource)
-    }
+    fun provideRepository(localDataSource: LocalDataSource, remoteDataSource: RemoteDataSource): IAppRepository =
+         AppRepository(remoteDataSource, localDataSource)
+
 
     @Provides
     @Singleton
-    fun provideLocalDataSource(database: MyDatabase): LocalDataSource {
-        return LocalDataSource(database.taskDao())
-    }
+    fun provideLocalDataSource(database: MyDatabase): LocalDataSource =
+         LocalDataSource(database.taskDao())
+
 
     @Provides
     @Singleton
     fun provideRemoteDataSource(@Named(SubscriberScheduler) subscriberScheduler: Scheduler,
-                                @Named(ObserverScheduler) observerScheduler: Scheduler): RemoteDataSource {
-        return RemoteDataSource(subscriberScheduler, observerScheduler)
-    }
+                                @Named(ObserverScheduler) observerScheduler: Scheduler): RemoteDataSource =
+         RemoteDataSource(subscriberScheduler, observerScheduler)
+
 
     @Provides
     @Singleton
-    fun provideDatabase(): MyDatabase {
-        return Room.inMemoryDatabaseBuilder(app,
+    fun provideDatabase(): MyDatabase =
+         Room.inMemoryDatabaseBuilder(app,
                 MyDatabase::class.java).allowMainThreadQueries()
                 .build()
 
-    }
+
 
 }
 
