@@ -5,8 +5,10 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import com.myhome.app.data.AppRepository
 import com.myhome.app.data.IAppRepository
+import com.myhome.app.data.local.ILocalDataSource
 import com.myhome.app.data.local.LocalDataSource
 import com.myhome.app.data.local.room.MyDatabase
+import com.myhome.app.data.remote.IRemoteDataSource
 import com.myhome.app.data.remote.RemoteDataSource
 import dagger.Module
 import dagger.Provides
@@ -41,20 +43,20 @@ class AppModule(private val app: Application) {
 
     @Provides
     @Singleton
-    fun provideRepository(localDataSource: LocalDataSource, remoteDataSource: RemoteDataSource): IAppRepository =
+    fun provideRepository(localDataSource: ILocalDataSource, remoteDataSource: IRemoteDataSource): IAppRepository =
          AppRepository(remoteDataSource, localDataSource)
 
 
     @Provides
     @Singleton
-    fun provideLocalDataSource(database: MyDatabase): LocalDataSource =
+    fun provideLocalDataSource(database: MyDatabase): ILocalDataSource =
          LocalDataSource(database.taskDao())
 
 
     @Provides
     @Singleton
     fun provideRemoteDataSource(@Named(SubscriberScheduler) subscriberScheduler: Scheduler,
-                                @Named(ObserverScheduler) observerScheduler: Scheduler): RemoteDataSource =
+                                @Named(ObserverScheduler) observerScheduler: Scheduler): IRemoteDataSource =
          RemoteDataSource(subscriberScheduler, observerScheduler)
 
 

@@ -90,7 +90,7 @@ class ArticlePagerPresenter @Inject constructor(private var getArticles: GetArti
         override fun onNext(t: MutableList<Article>) {
             mView?.onDataLoaded()
             var rating = 0
-            val total: Int = t.size
+            val total = t.size
             if (updateItems) {
                 mView?.setData(t)
             }

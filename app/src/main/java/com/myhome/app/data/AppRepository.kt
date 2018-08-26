@@ -1,16 +1,18 @@
 package com.myhome.app.data
 
+import com.myhome.app.data.local.ILocalDataSource
 import com.myhome.app.data.local.LocalDataSource
 import com.myhome.app.data.model.Article
 import com.myhome.app.data.model.GetItemsResponse
+import com.myhome.app.data.remote.IRemoteDataSource
 import com.myhome.app.data.remote.RemoteDataSource
 import com.myhome.app.domain.Params
 import io.reactivex.Observable
 import retrofit2.Response
 import javax.inject.Inject
 
-class AppRepository @Inject constructor(private val remoteDataSource: RemoteDataSource,
-                                            private val localDataSource: LocalDataSource) : IAppRepository {
+class AppRepository @Inject constructor(private val remoteDataSource: IRemoteDataSource,
+                                            private val localDataSource: ILocalDataSource) : IAppRepository {
 
     override fun getItems(params: Params): Observable<Response<GetItemsResponse>> {
         return remoteDataSource.getArticles(params).map { response ->
