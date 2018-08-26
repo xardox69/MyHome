@@ -31,13 +31,24 @@ interface ArticlePagerContract {
 
     interface Presenter {
 
-
+        /**
+         * Subsribe to  view
+         */
         fun takeView(view: ArticlePagerContract.View)
 
+        /**
+         * Unsubscribe from a view
+         */
         fun dropView()
 
+        /**
+         * Gets the data from repository
+         */
         fun getArticles()
 
+        /**
+         * Called when an item is positivly rated
+         */
         fun likeArticle(sku: String)
 
         fun dislikeArticle(sku: String)

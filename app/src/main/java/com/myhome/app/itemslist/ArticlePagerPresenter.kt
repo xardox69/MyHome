@@ -9,6 +9,10 @@ import io.reactivex.Scheduler
 import io.reactivex.observers.DisposableObserver
 import javax.inject.Inject
 
+
+/**
+ * Presenter to show the items in a pager
+ */
 class ArticlePagerPresenter @Inject constructor(private var getArticles: GetArticles, private var updateArticle: UpdateArticle,
                             private var subscriberScheduler: Scheduler, private var observerScheduler: Scheduler) : ArticlePagerContract.Presenter {
 

@@ -25,7 +25,7 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
 
 
 
-
+    // Adapter to set articles in a pager
     private lateinit var adapter: MyPagerAdapter
 
 
@@ -41,13 +41,25 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
         }
     }
 
-
+    // viewpager to show items
     private lateinit var pager: ViewPager
+
+    //presenter
     @Inject lateinit var presenter: ArticlePagerPresenter
+
+    // textview to show total number of items
     private lateinit var total: TextView
+
+    // textview to show the items rated so far
     private lateinit var ratedCount: TextView
+
+    // button to be enabled after every item is reviewed
     private lateinit var reviewBtn: Button
+
+    // snackbar to display the last item info
     private lateinit var snackbar: Snackbar
+
+    // variable to set  position of the pager
     private var currentPosition: Int = 0
 
 
@@ -87,6 +99,8 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+
+        //save pager state
         outState.putInt(PAGER_KEY, pager.currentItem)
     }
 
@@ -113,13 +127,18 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
             val sku: String = view.getTag(R.id.item_sku) as String
             val tempView = pager.findViewWithTag<View>(sku)
 
+            //like button click
             if (view.id == R.id.like_image) {
                 this.presenter.likeArticle(sku)
                 ViewUtils.deselectDisLikeView(tempView)
+
+                //dislike button click
             } else if (view.id == R.id.unlike_image) {
                 this.presenter.dislikeArticle(sku)
                 ViewUtils.deselectLikeView(tempView)
             }
+
+            //move to next page after rating
             presenter.setNextpage(pager.currentItem, adapter.count)
 
         } else if (view?.id == R.id.review_btn && reviewBtn.isEnabled) {
