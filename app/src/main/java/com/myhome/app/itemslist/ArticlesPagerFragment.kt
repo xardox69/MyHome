@@ -45,7 +45,7 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
     private lateinit var pager: ViewPager
 
     //presenter
-    @Inject lateinit var presenter: ArticlePagerPresenter
+    @Inject lateinit var presenter: ArticlePagerContract.Presenter
 
     // textview to show total number of items
     private lateinit var total: TextView

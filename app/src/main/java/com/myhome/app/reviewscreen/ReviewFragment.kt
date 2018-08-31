@@ -45,7 +45,7 @@ class ReviewFragment : Fragment(), ReviewContract.View, CompoundButton.OnChecked
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var myAdapter: ReviewAdapter
-    @Inject lateinit var presenter: ReviewPresenter
+    @Inject lateinit var presenter: ReviewContract.Presenter
     private lateinit var switch: Switch
     private lateinit var snackbar: Snackbar
 
