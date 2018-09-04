@@ -8,7 +8,7 @@ class Params private constructor() {
 
     fun putInt(key: String,
                value: Int) {
-        parameters.put(key, value)
+        parameters[key] = value
     }
 
     fun getParameters(): Map<String, Any> {
@@ -28,13 +28,13 @@ class Params private constructor() {
 
     fun putString(key: String,
                   value: String) {
-        parameters.put(key, value)
+        parameters[key] = value
     }
 
 
     fun putList(key: String,
                 value: List<String>) {
-        parameters.put(key, value)
+        parameters[key] = value
     }
 
 
@@ -51,17 +51,17 @@ class Params private constructor() {
 
     fun putLong(key: String,
                 value: Long) {
-        parameters.put(key, value)
+        parameters[key] = value
     }
 
     fun putFloat(key: String,
                  value: Float) {
-        parameters.put(key, value)
+        parameters[key] = value
     }
 
     fun putData(key: String,
                 value: Any) {
-        parameters.put(key, value)
+        parameters[key] = value
     }
 
     fun getFloat(key: String,
