@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.myhome.app.R
-import com.myhome.app.data.model.Article
 import com.myhome.app.domain.entities.ArticleModel
 import com.myhome.app.itemslist.ArticleViewHolder
 

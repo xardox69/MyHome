@@ -1,6 +1,5 @@
 package com.myhome.app.reviewscreen
 
-import com.myhome.app.data.model.Article
 import com.myhome.app.data.remote.APIConstants
 import com.myhome.app.domain.Params
 import com.myhome.app.domain.entities.ArticleModel
