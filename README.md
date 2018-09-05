@@ -26,6 +26,8 @@ A simple Android application which shows home items listings.
 *  [Mockito](http://site.mockito.org) for mocking in test 
 *  [Dagger](https://github.com/google/dagger) for dependency injection 
 *  [Jackson](https://github.com/FasterXML/jackson-core) for pasing json response 
+*  [anko](https://github.com/Kotlin/anko) Anko is a Kotlin library which makes Android application development faster
+*  [RxJava2](https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0) for reactive 
  
  
  
