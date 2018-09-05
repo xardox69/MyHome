@@ -10,8 +10,6 @@ interface ILocalDataSource {
 
     fun saveItems(items: MutableList<Article>)
 
-    fun getItems(sku: String): Observable<Article>
-
     fun getItems(): Observable<MutableList<Article>>
 
     fun likeArticle(sku: String)

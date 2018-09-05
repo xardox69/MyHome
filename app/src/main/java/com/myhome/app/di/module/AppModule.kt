@@ -51,8 +51,9 @@ class AppModule(private val app: Application) {
 
     @Provides
     @Singleton
-    fun provideLocalDataSource(database: MyDatabase): ILocalDataSource =
-         LocalDataSource(database.taskDao())
+    fun provideLocalDataSource(database: MyDatabase,@Named(SubscriberScheduler) subscriberScheduler: Scheduler,
+                               @Named(ObserverScheduler) observerScheduler: Scheduler): ILocalDataSource =
+         LocalDataSource(database.taskDao(),subscriberScheduler,observerScheduler)
 
 
     @Provides

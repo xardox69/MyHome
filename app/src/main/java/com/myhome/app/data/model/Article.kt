@@ -42,4 +42,8 @@ data class Article(
         @Nullable
         @ColumnInfo(name = "media")
         @JsonProperty("media")
-        var media: MutableList<ArticleMedia>)
+        var media: MutableList<ArticleMedia>) {
+        override fun toString(): String {
+                return "Article(sku='$sku', title='$title', like=$like, dislike=$dislike, media=$media)"
+        }
+}

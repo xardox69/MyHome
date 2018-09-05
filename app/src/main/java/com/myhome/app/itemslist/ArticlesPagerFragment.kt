@@ -67,6 +67,7 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.frag_articles_pager, container, false)
         (activity?.application as MyApp).appComponent.inject(this)
+
         pager = view.view_pager
         total = view.total
         ratedCount = view.rated
@@ -74,13 +75,14 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
         reviewBtn.setOnClickListener(this)
         adapter = MyPagerAdapter(arrayListOf<ArticleModel>(), this)
         pager.adapter = adapter
-        presenter.getArticles()
         snackbar = Snackbar.make(activity!!.findViewById(android.R.id.content), "", Snackbar.LENGTH_SHORT)
 
         if (savedInstanceState != null) {
             currentPosition = savedInstanceState.getInt(PAGER_KEY)
         }
+        presenter.takeView(this)
 
+        presenter.getArticles()
         return view
     }
 

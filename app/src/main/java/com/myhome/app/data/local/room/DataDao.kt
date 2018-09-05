@@ -14,10 +14,6 @@ interface DataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUser(item: Article)
 
-
-    @Query("SELECT * FROM article WHERE sku = :givenSKU")
-    fun getArticleWithSKU(givenSKU:String): Article
-
     @Query("SELECT * FROM article")
     fun getArticles(): MutableList<Article>
 
