@@ -7,9 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.myhome.app.R
 import com.myhome.app.data.model.Article
+import com.myhome.app.domain.entities.ArticleModel
 import com.myhome.app.itemslist.ArticleViewHolder
 
-class MyPagerAdapter constructor(private val list: MutableList<Article>, private val clickListener :View.OnClickListener) : PagerAdapter(),View.OnClickListener {
+class MyPagerAdapter constructor(private val list: MutableList<ArticleModel>, private val clickListener :View.OnClickListener) : PagerAdapter(),View.OnClickListener {
 
 
 
@@ -47,7 +48,7 @@ class MyPagerAdapter constructor(private val list: MutableList<Article>, private
         val view = LayoutInflater.from(container.context)
                 .inflate(R.layout.page_layout,container,false)
 
-         val item :Article = list[position]
+         val item :ArticleModel = list[position]
 
         val holder = ArticleViewHolder(view)
 
@@ -80,7 +81,7 @@ class MyPagerAdapter constructor(private val list: MutableList<Article>, private
         parent.removeView(`object` as View)
     }
 
-    fun updateItems(updates: MutableList<Article>){
+    fun updateItems(updates: MutableList<ArticleModel>){
         list.clear()
         list.addAll(updates)
         notifyDataSetChanged()

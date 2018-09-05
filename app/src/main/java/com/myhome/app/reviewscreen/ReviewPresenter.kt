@@ -3,6 +3,7 @@ package com.myhome.app.reviewscreen
 import com.myhome.app.data.model.Article
 import com.myhome.app.data.remote.APIConstants
 import com.myhome.app.domain.Params
+import com.myhome.app.domain.entities.ArticleModel
 import com.myhome.app.domain.usecases.GetArticles
 import io.reactivex.Scheduler
 import io.reactivex.observers.DisposableObserver
@@ -41,12 +42,12 @@ class ReviewPresenter @Inject constructor(private var getArticles: GetArticles, 
     }
 
 
-    private inner class ArticlesObserver : DisposableObserver<MutableList<Article>>() {
+    private inner class ArticlesObserver : DisposableObserver<MutableList<ArticleModel>>() {
         override fun onError(e: Throwable) {
             mView?.showNetworkError()
         }
 
-        override fun onNext(t: MutableList<Article>) {
+        override fun onNext(t: MutableList<ArticleModel>) {
             mView?.dismissLoading()
             mView?.setData(t)
         }

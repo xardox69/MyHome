@@ -12,6 +12,7 @@ import android.widget.TextView
 import com.myhome.app.MyApp
 import com.myhome.app.R
 import com.myhome.app.data.model.Article
+import com.myhome.app.domain.entities.ArticleModel
 import com.myhome.app.reviewscreen.ReviewFragment
 import com.myhome.app.utils.ActivityUtils
 import com.myhome.app.utils.ViewUtils
@@ -71,7 +72,7 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
         ratedCount = view.rated
         reviewBtn = view.review_btn
         reviewBtn.setOnClickListener(this)
-        adapter = MyPagerAdapter(arrayListOf<Article>(), this)
+        adapter = MyPagerAdapter(arrayListOf<ArticleModel>(), this)
         pager.adapter = adapter
         presenter.getArticles()
         snackbar = Snackbar.make(activity!!.findViewById(android.R.id.content), "", Snackbar.LENGTH_SHORT)
@@ -150,7 +151,7 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
     }
 
 
-    override fun setData(data: MutableList<Article>) {
+    override fun setData(data: MutableList<ArticleModel>) {
         adapter.updateItems(data)
         pager.setCurrentItem(currentPosition, true)
     }

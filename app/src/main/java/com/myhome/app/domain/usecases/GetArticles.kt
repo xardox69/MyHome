@@ -3,22 +3,27 @@ package com.myhome.app.domain.usecases
 import com.myhome.app.data.IAppRepository
 import com.myhome.app.data.model.Article
 import com.myhome.app.domain.Params
+import com.myhome.app.domain.entities.ArticleModel
+import com.myhome.app.domain.mapper.ArticleMapper
 import io.reactivex.Observable
 import javax.inject.Inject
 
 
-@Suppress("NAME_SHADOWING")
-class GetArticles @Inject constructor(private val repository: IAppRepository) : BaseUseCase<MutableList<Article>>() {
+class GetArticles @Inject constructor(private val repository: IAppRepository,private val mapper:ArticleMapper)
+    : BaseUseCase<MutableList<ArticleModel>>() {
 
 
 
-    override fun getObservable(params: Params): Observable<MutableList<Article>> {
+    override fun getObservable(params: Params): Observable<MutableList<ArticleModel>> {
 
-     return    repository.getCachedItems().flatMap { response->
+        return repository.getCachedItems().flatMap { response->
             if(response.size >0){
-                (Observable.just(response))
+                (Observable.just(mapper.mapFrom(response)))
             } else {
-                (repository.getItems(params).flatMap { response -> (Observable.just(response.body()!!.objects.articles)) })
+
+              (repository.getItems(params).flatMap { response ->
+                    (Observable.just(mapper.mapFrom(response.body()!!.objects.articles)) ) })
+
             }
         }
 

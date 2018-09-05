@@ -1,14 +1,14 @@
 package com.myhome.app.itemslist
 
 import com.myhome.app.base.BaseView
-import com.myhome.app.data.model.Article
+import com.myhome.app.domain.entities.ArticleModel
 
 interface ArticlePagerContract {
 
 
     interface View : BaseView {
 
-        fun setData(data: MutableList<Article>)
+        fun setData(data: MutableList<ArticleModel>)
 
         fun onDataLoaded()
 

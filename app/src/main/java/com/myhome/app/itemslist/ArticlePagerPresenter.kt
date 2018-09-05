@@ -3,6 +3,7 @@ package com.myhome.app.itemslist
 import com.myhome.app.data.model.Article
 import com.myhome.app.data.remote.APIConstants
 import com.myhome.app.domain.Params
+import com.myhome.app.domain.entities.ArticleModel
 import com.myhome.app.domain.usecases.GetArticles
 import com.myhome.app.domain.usecases.UpdateArticle
 import io.reactivex.Scheduler
@@ -86,12 +87,12 @@ class ArticlePagerPresenter @Inject constructor(private var getArticles: GetArti
     }
 
 
-    private inner class ArticlesObserver(private var updateItems: Boolean) : DisposableObserver<MutableList<Article>>() {
+    private inner class ArticlesObserver(private var updateItems: Boolean) : DisposableObserver<MutableList<ArticleModel>>() {
         override fun onError(e: Throwable) {
             mView?.showNetworkError()
         }
 
-        override fun onNext(t: MutableList<Article>) {
+        override fun onNext(t: MutableList<ArticleModel>) {
             mView?.onDataLoaded()
             var rating = 0
             val total = t.size

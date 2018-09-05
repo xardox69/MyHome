@@ -10,6 +10,8 @@ import com.myhome.app.data.local.LocalDataSource
 import com.myhome.app.data.local.room.MyDatabase
 import com.myhome.app.data.remote.IRemoteDataSource
 import com.myhome.app.data.remote.RemoteDataSource
+import com.myhome.app.domain.mapper.ArticleMapper
+import com.myhome.app.domain.mapper.ArticleMediaMapper
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
@@ -67,7 +69,14 @@ class AppModule(private val app: Application) {
                 MyDatabase::class.java).allowMainThreadQueries()
                 .build()
 
+    @Provides
+    @Singleton
+    fun provideArticleMapper(mediaMapper: ArticleMediaMapper): ArticleMapper = ArticleMapper(mediaMapper)
 
+
+    @Provides
+    @Singleton
+    fun provideMediaMapper():ArticleMediaMapper = ArticleMediaMapper()
 
 }
 

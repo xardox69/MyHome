@@ -9,11 +9,12 @@ import android.view.View
 import android.content.Context
 import android.view.LayoutInflater
 import com.myhome.app.R
+import com.myhome.app.domain.entities.ArticleModel
 import com.myhome.app.utils.ListState
 import kotlinx.android.synthetic.main.grid_item.view.*
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class ReviewAdapter  (private var context: Context, private var items:MutableList<Article>,
+class ReviewAdapter  (private var context: Context, private var items:MutableList<ArticleModel>,
                       var type: Int) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -28,7 +29,7 @@ class ReviewAdapter  (private var context: Context, private var items:MutableLis
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item : Article = items[position]
+        val item : ArticleModel = items[position]
 
         if(holder.itemViewType == 1){
             GlideApp.with(context).load(item.media[0].uri).into((holder as MyListViewHolder).avatar)
@@ -54,7 +55,7 @@ class ReviewAdapter  (private var context: Context, private var items:MutableLis
 
 
 
-    fun updateItems(newUsers:List<Article>){
+    fun updateItems(newUsers:List<ArticleModel>){
         items.addAll(newUsers)
         notifyDataSetChanged()
     }
