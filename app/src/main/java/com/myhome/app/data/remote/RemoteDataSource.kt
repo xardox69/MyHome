@@ -1,5 +1,6 @@
 package com.myhome.app.data.remote
 
+import com.myhome.app.data.model.Article
 import com.myhome.app.data.model.GetItemsResponse
 import com.myhome.app.data.remote.APIConstants.CURRENT_DOMAIN
 import com.myhome.app.data.remote.APIConstants.CURRENT_LIMIT
@@ -25,10 +26,16 @@ class RemoteDataSource @Inject constructor(private val subscriberScheduler: Sche
                                            private val observerScheduler: Scheduler) : IRemoteDataSource {
 
 
-    override fun getArticles(params: Params): Observable<Response<GetItemsResponse>> {
+    override fun getArticles(params: Params): Observable<MutableList<Article>> {
         return service.getArticles(params.getString(APIConstants.APP_DOMAIN, CURRENT_DOMAIN)!!, params.getString(APIConstants.LOCALE, CURRENT_LOCALE)!!,
                 params.getInt(APIConstants.LIMIT, CURRENT_LIMIT)).subscribeOn(subscriberScheduler)
-                .observeOn(observerScheduler)
+                .observeOn(observerScheduler).flatMap { response1->
+                    if(response1.isSuccessful){
+                        (Observable.just(response1.body()!!.objects.articles))
+                    }else{
+                        (Observable.just(arrayListOf<Article>()))
+                    }
+                }
     }
 
 

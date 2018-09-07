@@ -9,7 +9,7 @@ import retrofit2.Response
  interface IAppRepository {
 
 
-    fun getItems(params: Params): Observable<Response<GetItemsResponse>>
+    fun getItems(params: Params): Observable<MutableList<Article>>
 
     fun likeArticle(sku: String)
 

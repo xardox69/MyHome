@@ -22,7 +22,7 @@ class GetArticles @Inject constructor(private val repository: IAppRepository,pri
             } else {
 
               (repository.getItems(params).flatMap { response ->
-                    (Observable.just(mapper.mapFrom(response.body()!!.objects.articles)) ) })
+                    (Observable.just(mapper.mapFrom(response)) ) })
 
             }
         }

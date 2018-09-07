@@ -14,10 +14,10 @@ import javax.inject.Inject
 class AppRepository @Inject constructor(private val remoteDataSource: IRemoteDataSource,
                                             private val localDataSource: ILocalDataSource) : IAppRepository {
 
-    override fun getItems(params: Params): Observable<Response<GetItemsResponse>> {
+    override fun getItems(params: Params): Observable<MutableList<Article>> {
         return remoteDataSource.getArticles(params).map { response ->
-            if (response.isSuccessful) {
-                localDataSource.saveItems(response.body()!!.objects.articles)
+            if(response.size > 0){
+                localDataSource.saveItems(response)
             }
             (response)
         }
