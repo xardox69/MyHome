@@ -1,7 +1,6 @@
 package com.myhome.app.data.remote
 
 import com.myhome.app.data.model.Article
-import com.myhome.app.data.model.GetItemsResponse
 import com.myhome.app.data.remote.APIConstants.CURRENT_DOMAIN
 import com.myhome.app.data.remote.APIConstants.CURRENT_LIMIT
 import com.myhome.app.data.remote.APIConstants.CURRENT_LOCALE
@@ -9,14 +8,11 @@ import com.myhome.app.domain.Params
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import okhttp3.OkHttpClient
-
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Response
 import retrofit2.Retrofit
-import java.util.concurrent.TimeUnit
-
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.jackson.JacksonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
@@ -29,11 +25,11 @@ class RemoteDataSource @Inject constructor(private val subscriberScheduler: Sche
     override fun getArticles(params: Params): Observable<MutableList<Article>> {
         return service.getArticles(params.getString(APIConstants.APP_DOMAIN, CURRENT_DOMAIN)!!, params.getString(APIConstants.LOCALE, CURRENT_LOCALE)!!,
                 params.getInt(APIConstants.LIMIT, CURRENT_LIMIT)).subscribeOn(subscriberScheduler)
-                .observeOn(observerScheduler).flatMap { response1->
-                    if(response1.isSuccessful){
+                .observeOn(observerScheduler).flatMap { response1 ->
+                    if (response1.isSuccessful) {
                         (Observable.just(response1.body()!!.objects.articles))
-                    }else{
-                        (Observable.just(arrayListOf<Article>()))
+                    } else {
+                        (Observable.just(arrayListOf()))
                     }
                 }
     }

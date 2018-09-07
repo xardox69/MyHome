@@ -11,7 +11,6 @@ import android.widget.Button
 import android.widget.TextView
 import com.myhome.app.MyApp
 import com.myhome.app.R
-import com.myhome.app.data.model.Article
 import com.myhome.app.domain.entities.ArticleModel
 import com.myhome.app.reviewscreen.ReviewFragment
 import com.myhome.app.utils.ActivityUtils
@@ -22,8 +21,6 @@ import javax.inject.Inject
 
 
 class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClickListener, ViewPager.OnPageChangeListener {
-
-
 
 
     // Adapter to set articles in a pager
@@ -46,7 +43,8 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
     private lateinit var pager: ViewPager
 
     //presenter
-    @Inject lateinit var presenter: ArticlePagerContract.Presenter
+    @Inject
+    lateinit var presenter: ArticlePagerContract.Presenter
 
     // textview to show total number of items
     private lateinit var total: TextView
@@ -126,7 +124,7 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
     override fun onClick(view: View?) {
 
 
-        if(view?.id == R.id.like_image || view?.id == R.id.unlike_image ) {
+        if (view?.id == R.id.like_image || view?.id == R.id.unlike_image) {
             val sku: String = view.getTag(R.id.item_sku) as String
             val tempView = pager.findViewWithTag<View>(sku)
 

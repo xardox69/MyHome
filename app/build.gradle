@@ -87,7 +87,7 @@ dependencies {
     implementation 'org.jetbrains.anko:anko-common:0.9'
 
 
-    testCompile 'de.jodamob.kotlin:kotlin-runner-junit4:0.3.1'
+
 
 
 

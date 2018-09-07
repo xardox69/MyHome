@@ -1,6 +1,5 @@
 package com.myhome.app.itemslist
 
-import com.myhome.app.data.model.Article
 import com.myhome.app.data.remote.APIConstants
 import com.myhome.app.domain.Params
 import com.myhome.app.domain.entities.ArticleModel
@@ -15,7 +14,7 @@ import javax.inject.Inject
  * Presenter to show the items in a pager
  */
 class ArticlePagerPresenter @Inject constructor(private var getArticles: GetArticles, private var updateArticle: UpdateArticle,
-                            private var subscriberScheduler: Scheduler, private var observerScheduler: Scheduler) : ArticlePagerContract.Presenter {
+                                                private var subscriberScheduler: Scheduler, private var observerScheduler: Scheduler) : ArticlePagerContract.Presenter {
 
 
     override fun setNextpage(currentPage: Int, totalPages: Int) {

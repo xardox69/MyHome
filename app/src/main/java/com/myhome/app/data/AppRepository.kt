@@ -1,22 +1,18 @@
 package com.myhome.app.data
 
 import com.myhome.app.data.local.ILocalDataSource
-import com.myhome.app.data.local.LocalDataSource
 import com.myhome.app.data.model.Article
-import com.myhome.app.data.model.GetItemsResponse
 import com.myhome.app.data.remote.IRemoteDataSource
-import com.myhome.app.data.remote.RemoteDataSource
 import com.myhome.app.domain.Params
 import io.reactivex.Observable
-import retrofit2.Response
 import javax.inject.Inject
 
-class AppRepository @Inject constructor(private val remoteDataSource: IRemoteDataSource,
-                                            private val localDataSource: ILocalDataSource) : IAppRepository {
+open class AppRepository @Inject constructor(private val remoteDataSource: IRemoteDataSource,
+                                             private val localDataSource: ILocalDataSource) : IAppRepository {
 
     override fun getItems(params: Params): Observable<MutableList<Article>> {
         return remoteDataSource.getArticles(params).map { response ->
-            if(response.size > 0){
+            if (response.size > 0) {
                 localDataSource.saveItems(response)
             }
             (response)

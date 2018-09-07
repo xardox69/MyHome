@@ -1,11 +1,9 @@
 package com.myhome.app.data.local
 
-import android.util.Log
 import com.myhome.app.data.local.room.DataDao
 import com.myhome.app.data.model.Article
 import io.reactivex.Observable
 import io.reactivex.Scheduler
-import io.reactivex.subjects.PublishSubject
 import org.jetbrains.anko.doAsync
 
 /**

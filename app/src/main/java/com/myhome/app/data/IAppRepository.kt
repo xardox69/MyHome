@@ -1,22 +1,20 @@
 package com.myhome.app.data
 
 import com.myhome.app.data.model.Article
-import com.myhome.app.data.model.GetItemsResponse
 import com.myhome.app.domain.Params
 import io.reactivex.Observable
-import retrofit2.Response
 
- interface IAppRepository {
+interface IAppRepository {
 
 
-    fun getItems(params: Params): Observable<MutableList<Article>>
+   fun getItems(params: Params): Observable<MutableList<Article>>
 
-    fun likeArticle(sku: String)
+   fun likeArticle(sku: String)
 
-    fun dislikeArticle(sku: String)
+   fun dislikeArticle(sku: String)
 
-    fun disLikeArticle(sku: String)
+   fun disLikeArticle(sku: String)
 
-    fun getCachedItems(): Observable<MutableList<Article>>
+   fun getCachedItems(): Observable<MutableList<Article>>
 
 }

@@ -1,14 +1,10 @@
 package com.myhome.app
 
-import com.myhome.app.data.AppRepository
+
 import com.myhome.app.data.IAppRepository
-import com.myhome.app.data.local.LocalDataSource
-import com.myhome.app.data.local.room.DataDao
 import com.myhome.app.data.model.Article
 import com.myhome.app.data.model.ArticleMedia
-import com.myhome.app.data.remote.RemoteDataSource
 import com.myhome.app.domain.Params
-import org.mockito.Captor;
 import com.myhome.app.domain.entities.ArticleModel
 import com.myhome.app.domain.mapper.ArticleMapper
 import com.myhome.app.domain.mapper.ArticleMediaMapper
@@ -16,59 +12,27 @@ import com.myhome.app.domain.usecases.GetArticles
 import com.myhome.app.domain.usecases.UpdateArticle
 import com.myhome.app.itemslist.ArticlePagerContract
 import com.myhome.app.itemslist.ArticlePagerPresenter
-import de.jodamob.kotlin.testrunner.KotlinTestRunner
-
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
-
-import io.reactivex.Flowable
 import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
-import org.junit.runner.RunWith
-
-import org.mockito.Matchers.any
+import org.junit.Assert.assertEquals
+import org.mockito.*
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
-import org.mockito.ArgumentCaptor
 
 
-
-
-@RunWith(KotlinTestRunner::class)
 class ListItemPresenterTest {
 
     @Mock
-    lateinit var appRepository: AppRepository
-
-    //@Mock
-    //lateinit var dao: DataDao
-
-
-    //@Mock
-    //lateinit var remoteDataSource: RemoteDataSource
-
-    //@Mock
-    //lateinit var localDataSource: LocalDataSource
-
-
-
-    /*@Mock
-    lateinit var getArticles :GetArticles*/
-
-
-
-
-    /*@Mock
-    lateinit var updateArticle: UpdateArticle*/
+    lateinit var appRepository: IAppRepository
 
     @Mock private lateinit var pagerView: ArticlePagerContract.View
 
     private lateinit var presenter :ArticlePagerPresenter
 
     private lateinit var articles: MutableList<Article>
+    @Captor private lateinit var listArgumentCaptor: ArgumentCaptor<MutableList<ArticleModel>>
 
     @Before
     fun  setupPresenter() {
@@ -81,6 +45,7 @@ class ListItemPresenterTest {
 
         var getArticles  = GetArticles(appRepository, ArticleMapper(ArticleMediaMapper()))
         var updateArticle: UpdateArticle = UpdateArticle(appRepository)
+
 
         presenter = ArticlePagerPresenter(getArticles,updateArticle,Schedulers.trampoline()  ,Schedulers.trampoline() )
 
@@ -99,28 +64,61 @@ class ListItemPresenterTest {
     }
 
 
-    @Test fun get_Data_from_presenter_show_loading(){
+    @Test fun get_data_from_presenter_show_loading(){
         presenter.takeView(pagerView)
         presenter.getArticles()
         verify(pagerView).showLoading()
     }
 
-    @Test fun get_Data_from_presenter_show_data(){
-        val argument = ArgumentCaptor.forClass(List::class.java as Class<*>)
+    @Test fun get_data_from_presenter_show_data(){
         presenter.takeView(pagerView)
         presenter.getArticles()
         verify(pagerView).showLoading()
-        //verify(pagerView).setData((argument.capture())
+        verify(pagerView).onDataLoaded()
+        verify(pagerView).setData(capture(listArgumentCaptor))
+        assertEquals(1,listArgumentCaptor.value.size)
     }
 
 
-    @Test fun get_Data_from_presenter_dismiss_loading(){
+    @Test fun update_ratings_from_presenter(){
         presenter.takeView(pagerView)
         presenter.getArticles()
         verify(pagerView).showLoading()
-       // verify(pagerView).setData(articles)
-       // verify(pagerView).onDataLoaded()
+        verify(pagerView).showLoading()
+        verify(pagerView).onDataLoaded()
+        verify(pagerView).setData(capture(listArgumentCaptor))
+        assertEquals(1,listArgumentCaptor.value.size)
+        verify(pagerView).updateRatings(1,1)
     }
+
+    @Test fun update_review_button_from_presenter(){
+        presenter.takeView(pagerView)
+        presenter.getArticles()
+        verify(pagerView).showLoading()
+        verify(pagerView).showLoading()
+        verify(pagerView).onDataLoaded()
+        verify(pagerView).setData(capture(listArgumentCaptor))
+        assertEquals(1,listArgumentCaptor.value.size)
+        verify(pagerView).updateRatings(1,1)
+        verify(pagerView).enableReviewButton()
+    }
+
+
+    fun <T> capture(argumentCaptor: ArgumentCaptor<T>): T = argumentCaptor.capture()
+
+
+    inline fun <reified T : Any> argumentCaptor(): ArgumentCaptor<T> =
+            ArgumentCaptor.forClass(T::class.java)
+
+
+    fun <T> eq(obj: T): T = Mockito.eq<T>(obj)
+
+
+    /**
+     * Returns Mockito.any() as nullable type to avoid java.lang.IllegalStateException when
+     * null is returned.
+     */
+    fun <T> any(): T = Mockito.any<T>()
 
 
 

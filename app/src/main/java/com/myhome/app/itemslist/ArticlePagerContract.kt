@@ -25,7 +25,6 @@ interface ArticlePagerContract {
         fun showNoItemsLeft()
 
 
-
     }
 
 
