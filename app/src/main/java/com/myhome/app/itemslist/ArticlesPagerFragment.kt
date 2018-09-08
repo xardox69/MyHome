@@ -153,7 +153,7 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
 
     override fun setData(data: MutableList<ArticleModel>) {
         adapter.updateItems(data)
-        pager.setCurrentItem(currentPosition, true)
+        pager.setCurrentItem(currentPosition, false)
     }
 
     override fun onDataLoaded() {
