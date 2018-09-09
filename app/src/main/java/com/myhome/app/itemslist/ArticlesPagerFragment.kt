@@ -13,7 +13,7 @@ import com.myhome.app.MyApp
 import com.myhome.app.R
 import com.myhome.app.di.articlelist.ArticleListComponent
 import com.myhome.app.di.articlelist.ArticleListModule
-import com.myhome.app.di.module.DaggerArticleListComponent
+import com.myhome.app.di.articlelist.DaggerArticleListComponent
 import com.myhome.app.domain.entities.ArticleModel
 import com.myhome.app.reviewscreen.ReviewFragment
 import com.myhome.app.utils.ActivityUtils
