@@ -11,6 +11,9 @@ import android.widget.Button
 import android.widget.TextView
 import com.myhome.app.MyApp
 import com.myhome.app.R
+import com.myhome.app.di.articlelist.ArticleListComponent
+import com.myhome.app.di.articlelist.ArticleListModule
+import com.myhome.app.di.module.DaggerArticleListComponent
 import com.myhome.app.domain.entities.ArticleModel
 import com.myhome.app.reviewscreen.ReviewFragment
 import com.myhome.app.utils.ActivityUtils
@@ -62,9 +65,16 @@ class ArticlesPagerFragment : Fragment(), ArticlePagerContract.View, View.OnClic
     private var currentPosition: Int = 0
 
 
+
+    lateinit var component: ArticleListComponent
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.frag_articles_pager, container, false)
-        (activity?.application as MyApp).appComponent.inject(this)
+        //(activity?.application as MyApp).appComponent.inject(this)
+        component = DaggerArticleListComponent.builder().appComponent((activity?.application as MyApp).appComponent)
+                .articleListModule(ArticleListModule()).build()
+        component.inject(this)
 
         pager = view.view_pager
         total = view.total

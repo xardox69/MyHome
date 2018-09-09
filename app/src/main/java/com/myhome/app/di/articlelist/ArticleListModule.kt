@@ -1,6 +1,8 @@
-package com.myhome.app.di.module
+package com.myhome.app.di.articlelist
 
+import com.aliumujib.githubtrending.di.app.scopes.FragmentScope
 import com.myhome.app.data.IAppRepository
+import com.myhome.app.di.app.module.AppModule
 import com.myhome.app.domain.mapper.ArticleMapper
 import com.myhome.app.domain.usecases.GetArticles
 import com.myhome.app.domain.usecases.UpdateArticle
@@ -10,14 +12,13 @@ import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
 import javax.inject.Named
-import javax.inject.Singleton
 
 
 @Module
 class ArticleListModule {
 
     @Provides
-    @Singleton
+    @FragmentScope
     fun provideArticlePagerPresenter(getArticles: GetArticles, updateArticle: UpdateArticle,
                                      @Named(AppModule.SubscriberScheduler) subscriberScheduler: Scheduler,
                                      @Named(AppModule.ObserverScheduler) observerScheduler: Scheduler): ArticlePagerContract.Presenter

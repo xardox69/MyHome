@@ -1,9 +1,9 @@
 package com.myhome.app
 
 import android.app.Application
-import com.myhome.app.di.component.AppComponent
+import com.myhome.app.di.app.AppComponent
 import com.myhome.app.di.component.DaggerAppComponent
-import com.myhome.app.di.module.AppModule
+import com.myhome.app.di.app.module.AppModule
 
 class MyApp:Application() {
 
